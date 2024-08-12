@@ -1,0 +1,11 @@
+code/env/
+code/__pycache__/
+code/lightning_logs/
+code/.ipynb_checkpoints/
+code/data/.ipynb_checkpoints/
+code/.vscode/
+code/darts_logs/
+code/models/
+code/results/
+code/figs/
+memoria/.ipynb_checkpoints/
