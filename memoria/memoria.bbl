@@ -16,5 +16,168 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{python}{book}{}
+      \name{author}{2}{}{%
+        {{hash=e504145eff12cd8803c227c919ccfacd}{%
+           family={Van\bibnamedelima Rossum},
+           familyi={V\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={Guido},
+           giveni={G\bibinitperiod}}}%
+        {{hash=0b735fb6ad359aa95b3bac4d5567af6f}{%
+           family={Drake},
+           familyi={D\bibinitperiod},
+           given={Fred\bibnamedelima L.},
+           giveni={F\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Scotts Valley, CA}%
+      }
+      \list{publisher}{1}{%
+        {CreateSpace}%
+      }
+      \strng{namehash}{190e2e6e0d73bf5671d8927d221674e7}
+      \strng{fullhash}{190e2e6e0d73bf5671d8927d221674e7}
+      \strng{bibnamehash}{190e2e6e0d73bf5671d8927d221674e7}
+      \strng{authorbibnamehash}{190e2e6e0d73bf5671d8927d221674e7}
+      \strng{authornamehash}{190e2e6e0d73bf5671d8927d221674e7}
+      \strng{authorfullhash}{190e2e6e0d73bf5671d8927d221674e7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{1-4414-1269-7}
+      \field{title}{Python 3 {Reference} {Manual}}
+      \field{year}{2009}
+    \endentry
+    \entry{darts}{article}{}
+      \name{author}{19}{}{%
+        {{hash=f53970a4a2fbcd546b767807a5f8aa2a}{%
+           family={Herzen},
+           familyi={H\bibinitperiod},
+           given={Julien},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7765fe904cc3cb8a42ad1ef427b08cca}{%
+           family={Lässig},
+           familyi={L\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=b2641900a0df3c7f8879fa523158ca08}{%
+           family={Piazzetta},
+           familyi={P\bibinitperiod},
+           given={Samuele\bibnamedelima Giuliano},
+           giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=b2bb0acb562af7c42692c4943207b230}{%
+           family={Neuer},
+           familyi={N\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1a2931b70c96fb663784089d4a85abf5}{%
+           family={Tafti},
+           familyi={T\bibinitperiod},
+           given={LÃ©o},
+           giveni={L\bibinitperiod}}}%
+        {{hash=1e174d05da1b2db0be7f01fe1f229d6f}{%
+           family={Raille},
+           familyi={R\bibinitperiod},
+           given={Guillaume},
+           giveni={G\bibinitperiod}}}%
+        {{hash=fee2b941557dcf1c9c22c8e9aed732ec}{%
+           family={Pottelbergh},
+           familyi={P\bibinitperiod},
+           given={Tomas\bibnamedelima Van},
+           giveni={T\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=05ec63e60305ac38952c6372b60ed41d}{%
+           family={Pasieka},
+           familyi={P\bibinitperiod},
+           given={Marek},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ae1e46fe0947241201e5d22631940242}{%
+           family={Skrodzki},
+           familyi={S\bibinitperiod},
+           given={Andrzej},
+           giveni={A\bibinitperiod}}}%
+        {{hash=95bfe36a311edb0a37c3a7225f4015ca}{%
+           family={Huguenin},
+           familyi={H\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=19b95fa456391a1affbe266e668bdaaa}{%
+           family={Dumonal},
+           familyi={D\bibinitperiod},
+           given={Maxime},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b26005204f6e401d19c193076bb6091d}{%
+           family={KoÅ›cisz},
+           familyi={K\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=132e68a9b1c54a5961a1dd7f2a2b6094}{%
+           family={Bader},
+           familyi={B\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=57ee2a8ef53f5fab487eaecb7e7cd853}{%
+           family={Gusset},
+           familyi={G\bibinitperiod},
+           given={FrÃ©dÃ©rick},
+           giveni={F\bibinitperiod}}}%
+        {{hash=55778af55bb113b964423635ebb36f0b}{%
+           family={Benheddi},
+           familyi={B\bibinitperiod},
+           given={Mounir},
+           giveni={M\bibinitperiod}}}%
+        {{hash=0895d0b1d7928176076a6f7f8cfbe1f3}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
+           given={Camila},
+           giveni={C\bibinitperiod}}}%
+        {{hash=0d3b7097a65959fe325e6cc5f3dd4f72}{%
+           family={Kosinski},
+           familyi={K\bibinitperiod},
+           given={Michal},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1d29af7546abe8da1f072171d4dd247d}{%
+           family={Petrik},
+           familyi={P\bibinitperiod},
+           given={Matej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=eeb0b98aca9ab841a27e0f5b74875b35}{%
+           family={Grosch},
+           familyi={G\bibinitperiod},
+           given={GaÃ«l},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{508a4a45e66780f054e0d4292e7ce5db}
+      \strng{fullhash}{85a5824b1c6887a37c60c92c16267fda}
+      \strng{bibnamehash}{b46cb19c3896f40795498423f9da9e38}
+      \strng{authorbibnamehash}{b46cb19c3896f40795498423f9da9e38}
+      \strng{authornamehash}{508a4a45e66780f054e0d4292e7ce5db}
+      \strng{authorfullhash}{85a5824b1c6887a37c60c92c16267fda}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Machine Learning Research}
+      \field{number}{124}
+      \field{title}{Darts: {User}-{Friendly} {Modern} {Machine} {Learning} for {Time} {Series}}
+      \field{volume}{23}
+      \field{year}{2022}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+      \verb{file}
+      \verb Texto completo:/home/antonio/Zotero/storage/YTR6AY24/Herzen et al. - 2022 - Darts User-Friendly Modern Machine Learning for T.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://jmlr.org/papers/v23/21-1177.html
+      \endverb
+      \verb{url}
+      \verb http://jmlr.org/papers/v23/21-1177.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

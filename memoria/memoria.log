@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.8.14)  14 AUG 2024 12:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.8.14)  14 AUG 2024 22:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -237,7 +237,7 @@ Using XMP template file: pdfa.xmp
 \openout3 = `pdfa.xmpi'.
 
 <<pdfa.xmpi>>)
-Package hyperref Info: Option `colorlinks' set `true' on input line 46.
+Package hyperref Info: Option `colorlinks' set `true' on input line 47.
  (/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2023/05/13 v2.17o AMS math features
 \@mathmargin=\skip54
@@ -838,40 +838,40 @@ LaTeX Info: Redefining \% on input line 12.
  (./1-introduccion.aux))
 \openout1 = `memoria.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 212.
-LaTeX Font Info:    Trying to load font information for OML+txmi on input line 212.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 213.
+LaTeX Font Info:    Trying to load font information for OML+txmi on input line 213.
  (/usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 212.
-LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 212.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 213.
+LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 213.
  (/usr/share/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 212.
-LaTeX Font Info:    Trying to load font information for OMX+txex on input line 212.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 213.
+LaTeX Font Info:    Trying to load font information for OMX+txex on input line 213.
  (/usr/share/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 212.
-LaTeX Font Info:    Trying to load font information for U+txexa on input line 212.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 213.
+LaTeX Font Info:    Trying to load font information for U+txexa on input line 213.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 212.
-LaTeX Font Info:    ... okay on input line 212.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 213.
+LaTeX Font Info:    ... okay on input line 213.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -926,13 +926,13 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 212.
+Package hyperref Info: Link coloring ON on input line 213.
  (./memoria.out) (./memoria.out)
 \@outlinefile=\write5
 \openout5 = `memoria.out'.
 
-LaTeX Info: Redefining \. on input line 212.
-LaTeX Info: Redefining \% on input line 212.
+LaTeX Info: Redefining \. on input line 213.
+LaTeX Info: Redefining \% on input line 213.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: floatrow package is loaded.
@@ -953,65 +953,65 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'memoria.bbl' found.
  (./memoria.bbl)
-Package biblatex Info: Reference section=0 on input line 212.
-Package biblatex Info: Reference segment=0 on input line 212.
-LaTeX Font Info:    Trying to load font information for T1+txss on input line 219.
+Package biblatex Info: Reference section=0 on input line 213.
+Package biblatex Info: Reference segment=0 on input line 213.
+LaTeX Font Info:    Trying to load font information for T1+txss on input line 220.
  (/usr/share/texmf-dist/tex/latex/txfonts/t1txss.fd
 File: t1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 219.
-<imagenes/logo_UC3M.png, id=14, 456.2865pt x 45.99pt>
+(Font)              scaled to size 11.39996pt on input line 220.
+<imagenes/logo_UC3M.png, id=13, 456.2865pt x 45.99pt>
 File: imagenes/logo_UC3M.png Graphic file (type png)
 <use imagenes/logo_UC3M.png>
-Package pdftex.def Info: imagenes/logo_UC3M.png  used on input line 223.
+Package pdftex.def Info: imagenes/logo_UC3M.png  used on input line 224.
 (pdftex.def)             Requested size: 455.24408pt x 45.88531pt.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 16.41594pt on input line 226.
+(Font)              scaled to size 16.41594pt on input line 227.
 LaTeX Font Info:    Font shape `T1/txss/m/sl' will be
-(Font)              scaled to size 16.41594pt on input line 230.
+(Font)              scaled to size 16.41594pt on input line 231.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 23.63593pt on input line 234.
+(Font)              scaled to size 23.63593pt on input line 235.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 19.70294pt on input line 238.
+(Font)              scaled to size 19.70294pt on input line 239.
 LaTeX Font Info:    Font shape `T1/txss/b/n' in size <12> not available
-(Font)              Font shape `T1/txss/bx/n' tried instead on input line 251.
+(Font)              Font shape `T1/txss/bx/n' tried instead on input line 252.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 11.39996pt on input line 251.
+(Font)              scaled to size 11.39996pt on input line 252.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 251.
+(Font)              scaled to size 9.49997pt on input line 252.
 LaTeX Font Info:    Font shape `T1/txss/b/n' in size <10> not available
-(Font)              Font shape `T1/txss/bx/n' tried instead on input line 251.
+(Font)              Font shape `T1/txss/bx/n' tried instead on input line 252.
 LaTeX Font Info:    Font shape `T1/txss/bx/n' will be
-(Font)              scaled to size 9.49997pt on input line 251.
-LaTeX Font Info:    Trying to load font information for OT1+txr on input line 251.
+(Font)              scaled to size 9.49997pt on input line 252.
+LaTeX Font Info:    Trying to load font information for OT1+txr on input line 252.
  (/usr/share/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsya on input line 251.
+LaTeX Font Info:    Trying to load font information for U+txsya on input line 252.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyb on input line 251.
+LaTeX Font Info:    Trying to load font information for U+txsyb on input line 252.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txmia on input line 251.
+LaTeX Font Info:    Trying to load font information for U+txmia on input line 252.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyc on input line 251.
+LaTeX Font Info:    Trying to load font information for U+txsyc on input line 252.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
-Overfull \hbox (9.96916pt too wide) in paragraph at lines 251--252
+Overfull \hbox (9.96916pt too wide) in paragraph at lines 252--253
 [] 
  []
 
-<imagenes/creativecommons.png, id=16, 338.76563pt x 118.19156pt>
+<imagenes/creativecommons.png, id=15, 338.76563pt x 118.19156pt>
 File: imagenes/creativecommons.png Graphic file (type png)
 <use imagenes/creativecommons.png>
-Package pdftex.def Info: imagenes/creativecommons.png  used on input line 254.
+Package pdftex.def Info: imagenes/creativecommons.png  used on input line 255.
 (pdftex.def)             Requested size: 119.50148pt x 41.69228pt.
 [1
 
@@ -1019,17 +1019,17 @@ Package pdftex.def Info: imagenes/creativecommons.png  used on input line 254.
 pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.268 \begin{abstract}
+l.269 \begin{abstract}
                        [1]
 LaTeX Font Info:    Font shape `T1/txr/b/n' in size <12> not available
-(Font)              Font shape `T1/txr/bx/n' tried instead on input line 268.
+(Font)              Font shape `T1/txr/bx/n' tried instead on input line 269.
 LaTeX Font Info:    Font shape `T1/txr/b/n' in size <14.4> not available
-(Font)              Font shape `T1/txr/bx/n' tried instead on input line 268.
+(Font)              Font shape `T1/txr/bx/n' tried instead on input line 269.
  [3]
 pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.288 \chapter
+l.289 \chapter
               *{Dedicatoria} % \chapter* evita que aparezca en el índice [1] [5
 
 ] [6] (./memoria.toc
@@ -1072,12 +1072,16 @@ Cap\'{\i }tulo 1.
 
 
 ] [2]
-Package csquotes Info: Disabling multilingual quotes on input line 406.
+Package csquotes Info: Disabling multilingual quotes on input line 407.
+LaTeX Font Info:    Trying to load font information for T1+txtt on input line 408.
+ (/usr/share/texmf-dist/tex/latex/txfonts/t1txtt.fd
+File: t1txtt.fd 2000/12/15 v3.1
+) [3
 
 
-LaTeX Warning: Empty bibliography on input line 407.
 
-(./memoria.aux
+
+] (./memoria.aux
 LaTeX Info: Redefining \sptext on input line 12.
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
@@ -1087,23 +1091,23 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `memoria.out' has not changed.
-(rerunfilecheck)             Checksum: FFAF2F6B71BF0303DA6E54D2339B1C05;99.
+(rerunfilecheck)             Checksum: 0F4764DDBADC5C6BD94F2C620AEE9BAE;100.
 Package logreq Info: Writing requests to 'memoria.run.xml'.
 \openout1 = `memoria.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 28198 strings out of 475973
- 463137 string characters out of 5791054
+ 28454 strings out of 475973
+ 468148 string characters out of 5791054
  1936187 words of memory out of 5000000
- 49903 multiletter control sequences out of 15000+600000
- 619989 words of font info for 134 fonts, out of 8000000 for 9000
+ 50150 multiletter control sequences out of 15000+600000
+ 623282 words of font info for 138 fonts, out of 8000000 for 9000
  62 hyphenation exceptions out of 8191
  92i,11n,117p,1433b,2380s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on memoria.pdf (14 pages, 126824 bytes).
+</usr/share/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/share/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on memoria.pdf (15 pages, 138729 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
- 20 named destinations out of 1000 (max. 500000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 23 named destinations out of 1000 (max. 500000)
  39 words of extra memory for PDF output out of 10000 (max. 10000000)
 
