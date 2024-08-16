@@ -288,6 +288,9 @@ INPUT memoria.aux
 INPUT ./1-introduccion.aux
 INPUT ./1-introduccion.aux
 INPUT 1-introduccion.aux
+INPUT ./2-marcoteorico.aux
+INPUT ./2-marcoteorico.aux
+INPUT 2-marcoteorico.aux
 OUTPUT memoria.aux
 INPUT /usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
 INPUT /usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
@@ -476,6 +479,12 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/txfonts/t1xi.tfm
 INPUT /usr/share/texmf-dist/fonts/vf/public/txfonts/t1xi.vf
 INPUT /usr/share/texmf-dist/fonts/tfm/public/txfonts/rtxptmri.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/txfonts/rtxi.tfm
+INPUT ./2-marcoteorico.tex
+INPUT ./2-marcoteorico.tex
+OUTPUT 2-marcoteorico.aux
+INPUT ./2-marcoteorico.tex
+INPUT ./2-marcoteorico.tex
+INPUT 2-marcoteorico.tex
 INPUT /usr/share/texmf-dist/fonts/tfm/public/txfonts/t1xr.tfm
 INPUT /usr/share/texmf-dist/tex/latex/txfonts/t1txtt.fd
 INPUT /usr/share/texmf-dist/tex/latex/txfonts/t1txtt.fd
@@ -488,6 +497,9 @@ INPUT memoria.aux
 INPUT ./1-introduccion.aux
 INPUT ./1-introduccion.aux
 INPUT 1-introduccion.aux
+INPUT ./2-marcoteorico.aux
+INPUT ./2-marcoteorico.aux
+INPUT 2-marcoteorico.aux
 INPUT ./memoria.out
 INPUT ./memoria.out
 INPUT memoria.run.xml

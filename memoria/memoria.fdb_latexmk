@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber memoria"] 1723666604.27453 "memoria.bcf" "memoria.bbl" "memoria" 1723668332.86702 0
-  "memoria.bcf" 1723668332.79953 107272 36ba9b2726557b51ecd79fd183cf3f05 "pdflatex"
+["biber memoria"] 1723769334.63195 "memoria.bcf" "memoria.bbl" "memoria" 1723769336.84376 0
+  "memoria.bcf" 1723769336.77516 107272 36ba9b2726557b51ecd79fd183cf3f05 "pdflatex"
   "referencias.bib" 1723666279.56357 7228 6f50133dd2c913ba902acba83aa000db ""
   (generated)
   "memoria.bbl"
   "memoria.blg"
   (rewritten before read)
-["pdflatex"] 1723668332.00724 "/home/antonio/tfm/memoria/memoria.tex" "memoria.pdf" "memoria" 1723668332.86727 0
-  "/home/antonio/tfm/memoria/memoria.tex" 1723666101.76578 13392 7c0fedf638baff7a0073d5bd794d1f6b ""
+["pdflatex"] 1723769336.00233 "/home/antonio/tfm/memoria/memoria.tex" "memoria.pdf" "memoria" 1723769336.844 0
+  "/home/antonio/tfm/memoria/memoria.tex" 1723723627.30943 13417 98b828a3182b0daa79f52593a4216912 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1716849630 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1716849630 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1716849630 1288 655e228510b4c2a1abe905c368440826 ""
@@ -191,21 +191,24 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1723630755.67641 5312047 b07fcd2a9090df96fc745b92a3db793b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1723631047 7186782 402eee2aaa465897a487a3923147978c ""
-  "1-introduccion.aux" 1723668332.7862 4451 3fa639413bce03b78bf32f501df9c22d "pdflatex"
-  "1-introduccion.tex" 1723668332.15952 3619 f0ca64d1d304e593e9519a307055ad38 ""
+  "1-introduccion.aux" 1723769336.75849 4451 30bc699df09f68bc2bfeae73ca604999 "pdflatex"
+  "1-introduccion.tex" 1723768159.12187 2286 b3617d7aa6d9f5e68c697be50f0b55da ""
+  "2-marcoteorico.aux" 1723769336.76183 4453 ac7b0641df502eeefba4b129785016c1 "pdflatex"
+  "2-marcoteorico.tex" 1723769227.26004 2141 38e1a5defe9ab68bf0590aa14eaca54c ""
   "imagenes/creativecommons.png" 1723555346.77533 20748 2d1005dcab1cdcb889ee17a8f3b8cbcb ""
   "imagenes/logo_UC3M.png" 1723555346.77533 22996 c527860321fd85a49ffef78eb664cfb0 ""
-  "memoria.aux" 1723668332.7962 808 682c67674e56d88685459cd6e7409a60 "pdflatex"
-  "memoria.bbl" 1723666604.77161 6734 c812a54720c8baa7fc5c0e97bbaeded7 "biber memoria"
-  "memoria.lof" 1723668332.79953 67 eed3517ce67c6f8f6acdc185a2a7892e "pdflatex"
-  "memoria.lot" 1723668332.79953 67 eed3517ce67c6f8f6acdc185a2a7892e "pdflatex"
-  "memoria.out" 1723668332.79953 100 0f4764ddbadc5c6bd94f2c620aee9bae "pdflatex"
-  "memoria.run.xml" 1723668332.79953 2424 a07dca45c17754406fa301e7c073f94a "pdflatex"
-  "memoria.tex" 1723666101.76578 13392 7c0fedf638baff7a0073d5bd794d1f6b ""
-  "memoria.toc" 1723668332.79953 170 a9de810d3023246dc58db597c9556013 "pdflatex"
-  "pdfa.xmpi" 1723668332.28952 5042 ff9f6936e6b869d1c077a5506d6c35bb "pdflatex"
+  "memoria.aux" 1723769336.77183 836 7b3e500e18f512c9d96ed39c4be54cbb "pdflatex"
+  "memoria.bbl" 1723769335.1318 6734 c812a54720c8baa7fc5c0e97bbaeded7 "biber memoria"
+  "memoria.lof" 1723769336.77516 87 33fa5f893ce4440b88fc80db94deb70c "pdflatex"
+  "memoria.lot" 1723769336.77516 87 33fa5f893ce4440b88fc80db94deb70c "pdflatex"
+  "memoria.out" 1723769336.77516 154 093c8788336f7954bc9dbfc2e8968a40 "pdflatex"
+  "memoria.run.xml" 1723769336.77516 2424 a07dca45c17754406fa301e7c073f94a "pdflatex"
+  "memoria.tex" 1723723627.30943 13417 98b828a3182b0daa79f52593a4216912 ""
+  "memoria.toc" 1723769336.77516 240 6a117cf00df49f4b6480d74512379bf0 "pdflatex"
+  "pdfa.xmpi" 1723769336.27848 5042 c7d18962e245492c4c281e0ac6855ea8 "pdflatex"
   (generated)
   "1-introduccion.aux"
+  "2-marcoteorico.aux"
   "memoria.aux"
   "memoria.bcf"
   "memoria.lof"
