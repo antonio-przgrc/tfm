@@ -8,6 +8,7 @@ code/darts_logs/
 code/models/
 code/results/
 code/figs/
+bibliografia/
 memoria/.ipynb_checkpoints/
 memoria/memoria.aux
 memoria/memoria.bbl
@@ -26,4 +27,4 @@ memoria/output.xmpdata
 memoria/pdfa.xmpi
 memoria/memoria.pdf
 memoria/1-introduccion.aux
-bibliografia/
+memoria/2-marcoteorico.aux
