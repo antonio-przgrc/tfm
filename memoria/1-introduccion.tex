@@ -2,11 +2,21 @@
 
 La previsión de demanda es una herramienta importante para la planificación estratégica de múltiples sectores como el comercio minorista, la producción industrial y la logística. En el sector del \textit{aftermarket} del automóvil, la capacidad de predecir con la suficiente precisión la demanada de productos es fundamental para optimizar la cadena de suministro, reducir los costes de inventario y mejorar el servicio al cliente. La variabilidad de la demanda debida a factores como la estacionalidad, las tendencias económicas, las normativas medioambientales y los cambios en el comportamiento de los consumidores hace que las empresas se enfrenten a desafíos considerables a la hora de planificar su cadena de suministros de forma eficiente.
 
-Tradicionalmente, 
+Las predicciones se pueden realizar mediante métodos intuitivos, en base a la razón de los dirigientes, o mediante métodos cuantitativos, utilizando datos históricos. Tradicionalmente, se han utilizado métodos estadísticos convencionales para realizar predicciones, como pueden ser modelos de media móvil, suavizado exponencial o el método de Holt-Winters \cite{winters}. Sin embargo, los avances en el campo de la inteligencia artificial ha permitido el desarrollo de modelos de aprendizaje automático que son capaces de interpretar patrones complejos en el histórico de datos. Además, estos algoritmos pueden integrar variables externas que impacten en los datos de estudio, como puede ser el precio del combustible o la meteorología.
 
-El presente trabajo tiene el objetivo de explorar la aplicación de diversos algoritmos de aprendizaje automático sobre el histórico de ventas de una empresa distribuidora de recambios de coche como caso de estudio y evaluar los resultados obtenidos. Para ello, se utiliza Python \cite*{python} como lenguaje de programación y la librería Darts \cite*{darts}, una herramienta especializada en \textit{forecasting} con series temporales. Cuenta con distintos modelos tanto estadísticos como de aprendizaje automático, además de distintas utilidades para el entrenamiento y la evaluación de los modelos con el fin de mejorar las predicciones.
+En este contexto, el presente trabajo se centra en la aplicación de modelos de aprendizaje automático utilizando los datos de ventas de varias familias de producto de una empresa de recambios de coche. Para ello, se utiliza el lenguaje de programación Python \cite{python}, uno de los más utilizados en la ciencia de datos, junto con la librería Darts \cite{darts}, especializada en \textit{forecasting} en series temporales.
 
-La estructura del trabajo comienza con una revisión de la literatura existente en el campo de la previsión de demanda y el aprendizaje automático, dando contexto de las técnicas actuales usadas en la empresa de recambios de la que se utilizan los datos. A continuación, se describe la metodología utilizada, incluyendo una descripción de los datos, el preprocesamiento y la implementación de los distintos modelos. Posteriormente, se presentan y analizan los resultados obtenidos por los distintos algoritmos. Por último, se discuten las conclusiones del estudio y se sugieren futuras líneas de investigación.
+\section{Estructura del trabajo}
+
+En el Capítulo \ref{cap2}: Marco teórico, se realiza una revisión de los algoritmos de predicción de series temporales más relevantes para el caso de estudio y una descripción general del ámbito del \textit{forecast}.
+
+A continuación, en el Capítulo \ref{cap3}: Metodología, se detallan las series históricas de datos utilizados, los algoritmos implementados y así como las métricas para la evaluación de los resultados.
+
+En el Capítulo \ref{cap4}: Desarrollo, se describe la implementación y el código utilizado para el procesamiento de los datos, el entrenamiento de los modelos y las predicciones realizadas.
+
+Una vez realizadas las predicciones, se estudian los resultados obtenidos incluyendo las gráficas y métricas en el Capítulo \ref{cap5}: Resultados.
+
+Para finalizar el trabajo, se incluye el Capítulo \ref{cap6}: Conclusiones, donde se realizan las reflexiones finales del estudio se sugieren propuestas para proyectos futuros.
 
 
 % BLOQUE A1: NIVEL TECNOLÓGICO
