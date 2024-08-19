@@ -7,11 +7,11 @@ En la empresa de recambios de automóvil de estudio, las distintas referencias s
 \begin{itemize}
     \item Baterías.
     \item Filtros.
-    \item Discos de freno.
-    \item Pastillas de freno.
+    \item Aceites.
+    \item Limpiaparabrisas.
 \end{itemize} 
 
-En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2010 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos.
+En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos.
 
 Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref{3-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
 
@@ -85,6 +85,34 @@ Desglosando los componentes estacionales, no se observa una estacionalidad muy m
 	{\includegraphics[width=0.75\textwidth]{imagenes/comps_filtros.pdf}}
 \end{figure}
 
-\subsection{Discos}
+\subsection{Aceites}
 
-\subsection{Pastillas}
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Gráfica de la serie temporal de ventas de aceites}\label{3-graf_aceites}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_aceites.pdf}}
+\end{figure}
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Gráfica de componentes}\label{3-comp_aceites}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/comps_aceites.pdf}}
+\end{figure}
+
+\subsection{Limpiaparabrisas}
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Gráfica de la serie temporal de ventas de limpiaparabrisas}\label{3-graf_limpiaparabrisas}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_limpiaparabrisas.pdf}}
+\end{figure}
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Gráfica de componentes}\label{3-comp_limpiaparabrisas}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/comps_limpiaparabrisas.pdf}}
+\end{figure}

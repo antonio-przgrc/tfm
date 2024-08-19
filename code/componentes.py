@@ -2,7 +2,7 @@ import pandas as pd
 from prophet import Prophet
 import numpy as np
 
-names = ['baterias','filtros','discos','pastillas']
+names = ['baterias','filtros','aceites','limpiaparabrisas']
 
 for name in names:
     df = pd.read_csv(f'data/{name}.csv')
@@ -15,7 +15,7 @@ for name in names:
     df = df.groupby(pd.Grouper(freq='B'))
     df = df.sum()
     df[df['unidades'] < 0] = 0
-    df = df["2010-01-01":"2023-12-31"]
+    df = df["2012-01-01":"2023-12-31"]
 
     df = df.reset_index()
     df = df.rename({'fecha':'ds', 'unidades':'y'}, axis=1)
