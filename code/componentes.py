@@ -23,7 +23,7 @@ for name in names:
     m = Prophet()
     m.fit(df)
 
-    future = m.make_future_dataframe(periods=365)
+    future = m.make_future_dataframe(periods=1)
 
     forecast = m.predict(future)
 

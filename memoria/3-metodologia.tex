@@ -11,13 +11,13 @@ En la empresa de recambios de automóvil de estudio, las distintas referencias s
     \item Limpiaparabrisas.
 \end{itemize} 
 
-En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos.
+En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos. Sin embargo, para mantener coherencia entre todos los datos, se incluyen los días festivos que sea entre semana, que tendrán 0 unidades vendidas.
 
-Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref{3-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
+Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref*{3-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
 
 \lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
 
-A continuación, en la Tabla \ref{3-cabezafiltros} se observa una muestra con los cinco primeros datos como referencia de la estructura de los datos de las series.
+A continuación, en la Tabla \ref*{3-cabezafiltros} se observa una muestra con los cinco primeros datos como referencia de la estructura de los datos de las series.
 
 \begin{table}[H]
 	\ttabbox[\FBwidth]
@@ -44,7 +44,7 @@ A continuación, en la Tabla \ref{3-cabezafiltros} se observa una muestra con lo
 
 Las baterías forman un grupo de producto el cual resulta relevante de estudio, ya que son un elemento común a todos los vehículos que se puede considerar consumible, ya que con el tiempo se degradan y es necesaria su sustitución. Además, son un elemento perecedero y por ello es necesario que pasen en el almacén el menor tiempo posible para evitar posibles fallos y, posteriores devoluciones por garatía. También hay que tener en cuenta que las baterías son productos más voluminosos y pesados, por lo que el coste de inventario es superior a la media de los demás productos.
 
-En la Figura \ref{3-graf_baterias}, se observa una gráfica de la serie temporal, donde se muestra una clara tendencia al alza y cierta estacionalidad. Además, a destacar el bajón de ventas producidas por el confinamiento durante el COVID y el posterior incremento de las ventas al ser diferidas.
+En la Figura \ref*{3-graf_baterias}, se observa una gráfica de la serie temporal, donde se muestra una clara tendencia al alza y cierta estacionalidad. Además, a destacar el bajón de ventas producidas por el confinamiento durante el COVID y el posterior incremento de las ventas al ser diferidas.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -53,7 +53,7 @@ En la Figura \ref{3-graf_baterias}, se observa una gráfica de la serie temporal
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_baterias.pdf}}
 \end{figure}
 
-Utilizando la librería Prophet \cite{prophet}, se desglosa la estacionalidad de la serie temporal, mostrada en la Figura \ref{3-comp_baterias}. La primera subgráfica muestra la tendencia al alza en las ventas de esta familia. La segunda, muestra la estacionalidad intrasemanal, donde muestra que la mayoría de ventas se producen a comienzo de semana. En la última, la estacionalidad anual muestra que las ventas entorno al mes de abril son las más bajas del año, mientras que a partir de septiembre se incrementan considerablemente.
+Utilizando la librería Prophet \cite{prophet}, se desglosa la estacionalidad de la serie temporal, mostrada en la Figura \ref*{3-comp_baterias}. La primera subgráfica muestra la tendencia al alza en las ventas de esta familia. La segunda, muestra la estacionalidad intrasemanal, donde muestra que la mayoría de ventas se producen a comienzo de semana. En la última, la estacionalidad anual muestra que las ventas entorno al mes de abril son las más bajas del año, mientras que a partir de septiembre se incrementan considerablemente.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -67,11 +67,11 @@ Utilizando la librería Prophet \cite{prophet}, se desglosa la estacionalidad de
 
 Los filtros son el consumible por excelencia de los vehículos con motores de combustión, ya que la sustitución periódica de filtros como el de aceite y el de combustible es esencial para alargar la vida útil del motor. Además, también hay filtros como el de aire que se encuentran también en vehículos eléctricos. Por esto, se conforma una familia de producto que tiene un alto volumen de ventas.
 
-En la Figura \ref{3-graf_filtros} se observa el histórico de datos de la familia de producto. No se aprecia tanta estacionalidad como en el caso de las baterías, pero la tendencia al alza es bastante clara en los primeros años, con un estancamiento a partir del año 2020.
+En la Figura \ref*{3-graf_filtros} se observa el histórico de datos de la familia de producto. No se aprecia tanta estacionalidad como en el caso de las baterías, pero la tendencia al alza es bastante clara en los primeros años, con un estancamiento a partir del año 2020.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
-	\caption{Gráfica de la serie temporal de ventas de baterías}\label{3-graf_filtros}
+	\caption{Gráfica de la serie temporal de ventas de filtros}\label{3-graf_filtros}
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_filtros.pdf}}
 \end{figure}
@@ -80,12 +80,14 @@ Desglosando los componentes estacionales, no se observa una estacionalidad muy m
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
-	\caption{Gráfica de componentes}\label{3-comp_filtros}
+	\caption{Gráfica de componentes de la serie de filtros}\label{3-comp_filtros}
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/comps_filtros.pdf}}
 \end{figure}
 
 \subsection{Aceites}
+
+Otra familia importante es la de los aceites industriales. Se trata de productos que suelen ser voluminosos y, al igual que los filtros, su sustitución es imprescindible para un correcto mantenimiento de vehículos térmicos y alargar su vida útil. En la Figura \ref*{3-graf_aceites} se muestra la gráfica de la serie histórica.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -94,14 +96,18 @@ Desglosando los componentes estacionales, no se observa una estacionalidad muy m
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_aceites.pdf}}
 \end{figure}
 
+
+
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
-	\caption{Gráfica de componentes}\label{3-comp_aceites}
+	\caption{Gráfica de componentes de la serie de aceites}\label{3-comp_aceites}
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/comps_aceites.pdf}}
 \end{figure}
 
 \subsection{Limpiaparabrisas}
+
+Los limpiaparabrisas son un tipo de producto con una clara estacionalidad, ya que durante la época con mayor irradiación solar se deterioran en coches estacionados en la calle y se sustituyen cuando empieza la época de lluvias. En la Figura \ref*{3-graf_limpiaparabrisas}, se observa como hay picos intensos de demanda y valles marcados.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -110,9 +116,11 @@ Desglosando los componentes estacionales, no se observa una estacionalidad muy m
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_limpiaparabrisas.pdf}}
 \end{figure}
 
+En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ventas a lo largo de la serie histórica y la estacionalidad que concenctra las ventas después de la época de verano.
+
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
-	\caption{Gráfica de componentes}\label{3-comp_limpiaparabrisas}
+	\caption{Gráfica de componentes de la serie de limpiaparabrisas}\label{3-comp_limpiaparabrisas}
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/comps_limpiaparabrisas.pdf}}
 \end{figure}
