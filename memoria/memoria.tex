@@ -120,8 +120,8 @@ hmargin=3cm
 
 % Diseño de tabla para ingeniería
 \captionsetup*[table]{
-	format=upper,
-	name=TABLA,
+	%format=upper,
+	name=Tabla,
 	justification=centering,
 	labelsep=period,
 	width=.75\linewidth,
@@ -133,14 +133,16 @@ hmargin=3cm
 \usepackage{graphicx}
 \graphicspath{{imagenes/}} % ruta a la carpeta de imágenes
 
+
 % Diseño de figuras para ingeniería
 \captionsetup[figure]{
 	format=hang,
-	name=Fig.,
+	name=Figura,
 	singlelinecheck=off,
 	labelsep=period,
 	labelfont=small,
-	font=small		
+	font=small,
+	justification=centering
 }
 
 % NOTAS A PIE DE PÁGINA
@@ -180,7 +182,7 @@ hmargin=3cm
 \captionsetup*[lstlisting]{font=small, labelsep=period}
 % fijamos el estilo a utilizar 
 \lstset{style=estilo}
-\renewcommand{\lstlistingname}{\uppercase{Código}}
+\renewcommand{\lstlistingname}{Código}
 
 
 %BIBLIOGRAFÍA 
@@ -205,7 +207,7 @@ hmargin=3cm
 
 \addbibresource{referencias.bib} % llama al archivo referencias.bib en el que deberá estar la bibliografía utilizada
 
-
+\usepackage{svg}
 %-------------
 %	DOCUMENTO
 %-------------
