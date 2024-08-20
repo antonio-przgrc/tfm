@@ -256,8 +256,10 @@ def reset_models():
 # Entrenamiento
 for name in names:
     reset_models()
-    
-    print(name)    
+    names2 = cp(names)
+    names2.remove(name)
+    print(name)   
+
     mod_blockrnn.fit(train[f'{name}'])
     mod_blockrnn.save(f'models/{name}/blockrnn')
 
@@ -292,35 +294,32 @@ for name in names:
     mod_tsmixer.save(f'models/{name}/tsmixer')
 
 
-    mod_blockrnn_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_blockrnn_multi.fit(train.drop_columns(names2))
     mod_blockrnn_multi.save(f'models/{name}/blockrnn_multi')
 
-    mod_blocklstm_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_blocklstm_multi.fit(train.drop_columns(names2))
     mod_blocklstm_multi.save(f'models/{name}/blocklstm_multi')
 
-    mod_blockgru_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_blockgru_multi.fit(train.drop_columns(names2))
     mod_blockgru_multi.save(f'models/{name}/blockgru_multi')
 
-    mod_prophet.fit(train[name, 'tmed', 'prec', 'hrMedia'])
-    mod_prophet.save(f'models/{name}/prophet')
-
-    mod_nbeats_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_nbeats_multi.fit(train.drop_columns(names2))
     mod_nbeats_multi.save(f'models/{name}/nbeats_multi')
 
-    mod_nhits_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_nhits_multi.fit(train.drop_columns(names2))
     mod_nhits_multi.save(f'models/{name}/nhits_multi')
 
-    mod_tcn_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_tcn_multi.fit(train.drop_columns(names2))
     mod_tcn_multi.save(f'models/{name}/tcn_multi')
 
-    mod_dlinear_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_dlinear_multi.fit(train.drop_columns(names2))
     mod_dlinear_multi.save(f'models/{name}/dlinear_multi')
 
-    mod_nlinear_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_nlinear_multi.fit(train.drop_columns(names2))
     mod_nlinear_multi.save(f'models/{name}/nlinear_multi')
 
-    mod_tide_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_tide_multi.fit(train.drop_columns(names2))
     mod_tide_multi.save(f'models/{name}/tide_multi')
     
-    mod_tsmixer_multi.fit(train[name, 'tmed', 'prec', 'hrMedia'])
+    mod_tsmixer_multi.fit(train.drop_columns(names2))
     mod_tsmixer_multi.save(f'models/{name}/tsmixer_multi')
