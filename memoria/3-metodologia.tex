@@ -1,6 +1,6 @@
 \chapter{Metodología}\label{cap3}
 
-\section{Series de datos}
+\section{Series de datos de estudio}
 
 En la empresa de recambios de automóvil de estudio, las distintas referencias se agrupan en familias de productos para recibir un tratamiento común independientemente de la marca. Por ejemplo, todas las referencias únicas referidas a baterías pertenecen a la familia de baterías. Los datos que se obtienen del ERP son el agrupado de ventas diarias de cada familia de estudio. Las familias de producto utilizadas en este estudio son las siguientes:
 
@@ -123,6 +123,37 @@ En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ven
 	\caption{Gráfica de componentes de la serie de limpiaparabrisas}\label{3-comp_limpiaparabrisas}
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/comps_limpiaparabrisas.pdf}}
+\end{figure}
+
+
+\section{Regresores externos}
+
+A pesar de que el enfoque de las predicciones es univariable, ya que solo se busca predecir el valor de las ventas, es posible añadir regresores externos o \textit{covariates} para mejorar los resultados. Estos regresores pueden ser pasados, futuros o estáticos. En el caso de estudio presente, se utilizan regresores pasados.
+
+\subsection{Días festivos}
+
+Los días festivos las tiendas permanecen cerradas, por lo que las ventas son cero. Como las series de datos de estudio incluyen todos los días de lunes a viernes incluyendo los festivos, es buena idea añadir como regresor una serie donde se indique los días que son festivos. En este sentido, la librería Darts añade la funcionalidad de añadir una una serie extra con los días laborables de España y, además, de Andalucía. Se trata de una serie con una variable binaria donde 1 indica que es día festivo y 0 indica que no lo es. Se puede observar en la Figura \ref*{3-dias_festivos} los días festivos durante el rango de fechas del caso de estudio.
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Días festivos de España y Andalucía}\label{3-dias_festivos}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_holidays.pdf}}
+\end{figure}
+
+\subsection{Meteorología}
+
+\subsection{Precio del carburante}
+
+El precio de la gasolina y del diésel influye en la industria de la automoción en gran medida, ya que su valor incrementa el coste de la movilidad en vehículos térmicos. Por ello, su precio puede influir en la industria del \textit{aftermarket} del automóvil al verse reducido el uso de los vehículos. Por ello, es interesante utilizarlo como regresor durante el entrenamiento de los modelos.
+
+Para ello, se utilizan datos obtenidos del Boletín del Petróleo de la Comisión Europea \cite{petrol} que provee datos semanales del precio de diversos combustibles en todos los países de la Unión Europea. Como el diésel y la gasolina son los carburantes más empleados en la mayoría de vehículos serán los empleados en el estudio. Los datos obtenidos son semanales mientras que nuestros datos son diarios, por lo que el valor de cada semana se extenderá a todos los días de esa semana. La Figura \ref*{3-precio_combustible} muestra la evolución del precio de ambos combustibles a lo largo del período del estudio.
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Evolución del precio del combustible en España}\label{3-precio_combustible}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_carburantes.pdf}}
 \end{figure}
 
 \section{Modelos}
