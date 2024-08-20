@@ -96,12 +96,12 @@ train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
 
 # Definición de modelos
 epochs = 200
-batch = 32
+batch = 256
 
 mod_blockrnn = BlockRNNModel(
     model='RNN',
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
     dropout=0.2,
@@ -117,8 +117,8 @@ mod_blockrnn_multi = cp(mod_blockrnn)
 
 mod_blocklstm = BlockRNNModel(
     model='LSTM',
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
     dropout=0.2,
@@ -133,8 +133,8 @@ mod_blocklstm_multi = cp(mod_blocklstm)
 
 mod_blockgru = BlockRNNModel(
     model='GRU',
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
     dropout=0.2,
@@ -157,8 +157,8 @@ mod_prophet = Prophet(
 )
 
 mod_nbeats = NBEATSModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     dropout=0.2,
     n_epochs=epochs,
     show_warnings=True,
@@ -169,8 +169,8 @@ mod_nbeats = NBEATSModel(
 mod_nbeats_multi = cp(mod_nbeats)
 
 mod_nhits = NHiTSModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     dropout=0.2,
     n_epochs=epochs,
     show_warnings=True,
@@ -182,8 +182,8 @@ mod_nhits = NHiTSModel(
 mod_nhits_multi = cp(mod_nhits)
 
 mod_tcn = TCNModel(
-    input_chunk_length=120,
-    output_chunk_length=60,
+    input_chunk_length=260,
+    output_chunk_length=130,
     dropout=0.2,
     n_epochs=epochs,
     show_warnings=True,
@@ -196,8 +196,8 @@ mod_tcn = TCNModel(
 mod_tcn_multi = cp(mod_tcn)
 
 mod_dlinear = DLinearModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     n_epochs=epochs,
     show_warnings=True,
     batch_size=batch,
@@ -208,8 +208,8 @@ mod_dlinear = DLinearModel(
 mod_dlinear_multi = cp(mod_dlinear)
 
 mod_nlinear = NLinearModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     n_epochs=epochs,
     show_warnings=True,
     batch_size=batch,
@@ -220,8 +220,8 @@ mod_nlinear = NLinearModel(
 mod_nlinear_multi = cp(mod_nlinear)
 
 mod_tide = TiDEModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     dropout=0.2,
     n_epochs=epochs,
     show_warnings=True,
@@ -233,13 +233,13 @@ mod_tide = TiDEModel(
 mod_tide_multi = cp(mod_tide)
 
 mod_tsmixer = TSMixerModel(
-    input_chunk_length=60,
-    output_chunk_length=60,
+    input_chunk_length=130,
+    output_chunk_length=130,
     dropout=0.2,
     n_epochs=epochs,
     show_warnings=True,
     batch_size=batch,
-    model_name='tide',
+    model_name='tsmixer',
 #    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}     
     pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True} 
 )
@@ -273,66 +273,66 @@ for name in names:
     reset_models()
     print(name)   
 
-    # mod_blockrnn.fit(train[f'{name}'])
-    # mod_blockrnn.save(f'models/{name}/blockrnn')
+    mod_blockrnn.fit(train[f'{name}'])
+    mod_blockrnn.save(f'models/{name}/blockrnn')
 
-    # mod_blocklstm.fit(train[f'{name}'])
-    # mod_blocklstm.save(f'models/{name}/blocklstm')
+    mod_blocklstm.fit(train[f'{name}'])
+    mod_blocklstm.save(f'models/{name}/blocklstm')
 
-    # mod_blockgru.fit(train[f'{name}'])
-    # mod_blockgru.save(f'models/{name}/blockgru')
+    mod_blockgru.fit(train[f'{name}'])
+    mod_blockgru.save(f'models/{name}/blockgru')
 
-    # mod_prophet.fit(train[f'{name}'])
-    # mod_prophet.save(f'models/{name}/prophet')
+    mod_prophet.fit(train[f'{name}'])
+    mod_prophet.save(f'models/{name}/prophet')
 
-    # mod_nbeats.fit(train[f'{name}'])
-    # mod_nbeats.save(f'models/{name}/nbeats')
+    mod_nbeats.fit(train[f'{name}'])
+    mod_nbeats.save(f'models/{name}/nbeats')
 
-    # mod_nhits.fit(train[f'{name}'])
-    # mod_nhits.save(f'models/{name}/nhits')
+    mod_nhits.fit(train[f'{name}'])
+    mod_nhits.save(f'models/{name}/nhits')
 
-    # mod_tcn.fit(train[f'{name}'])
-    # mod_tcn.save(f'models/{name}/tcn')
+    mod_tcn.fit(train[f'{name}'])
+    mod_tcn.save(f'models/{name}/tcn')
 
-    # mod_dlinear.fit(train[f'{name}'])
-    # mod_dlinear.save(f'models/{name}/dlinear')
+    mod_dlinear.fit(train[f'{name}'])
+    mod_dlinear.save(f'models/{name}/dlinear')
 
-    # mod_nlinear.fit(train[f'{name}'])
-    # mod_nlinear.save(f'models/{name}/nlinear')
+    mod_nlinear.fit(train[f'{name}'])
+    mod_nlinear.save(f'models/{name}/nlinear')
 
-    # mod_tide.fit(train[f'{name}'])
-    # mod_tide.save(f'models/{name}/tide')
+    mod_tide.fit(train[f'{name}'])
+    mod_tide.save(f'models/{name}/tide')
     
-    # mod_tsmixer.fit(train[f'{name}'])
-    # mod_tsmixer.save(f'models/{name}/tsmixer')
+    mod_tsmixer.fit(train[f'{name}'])
+    mod_tsmixer.save(f'models/{name}/tsmixer')
 
 
-    mod_blockrnn_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_blockrnn_multi.save(f'models/{name}/blockrnn_multi')
+    # mod_blockrnn_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_blockrnn_multi.save(f'models/{name}/blockrnn_multi')
 
-    mod_blocklstm_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_blocklstm_multi.save(f'models/{name}/blocklstm_multi')
+    # mod_blocklstm_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_blocklstm_multi.save(f'models/{name}/blocklstm_multi')
 
-    mod_blockgru_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_blockgru_multi.save(f'models/{name}/blockgru_multi')
+    # mod_blockgru_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_blockgru_multi.save(f'models/{name}/blockgru_multi')
 
-    mod_nbeats_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_nbeats_multi.save(f'models/{name}/nbeats_multi')
+    # mod_nbeats_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_nbeats_multi.save(f'models/{name}/nbeats_multi')
 
-    mod_nhits_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_nhits_multi.save(f'models/{name}/nhits_multi')
+    # mod_nhits_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_nhits_multi.save(f'models/{name}/nhits_multi')
 
-    mod_tcn_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
-    mod_tcn_multi.save(f'models/{name}/tcn_multi')
+    # mod_tcn_multi.fit(series=train[name], past_covariates=train.drop_columns(names))
+    # mod_tcn_multi.save(f'models/{name}/tcn_multi')
 
-    mod_dlinear_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
-    mod_dlinear_multi.save(f'models/{name}/dlinear_multi')
+    # mod_dlinear_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
+    # mod_dlinear_multi.save(f'models/{name}/dlinear_multi')
 
-    mod_nlinear_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
-    mod_nlinear_multi.save(f'models/{name}/nlinear_multi')
+    # mod_nlinear_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
+    # mod_nlinear_multi.save(f'models/{name}/nlinear_multi')
 
-    mod_tide_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
-    mod_tide_multi.save(f'models/{name}/tide_multi')
+    # mod_tide_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
+    # mod_tide_multi.save(f'models/{name}/tide_multi')
     
-    mod_tsmixer_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
-    mod_tsmixer_multi.save(f'models/{name}/tsmixer_multi')
+    # mod_tsmixer_multi.fit(series=train[name], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'])
+    # mod_tsmixer_multi.save(f'models/{name}/tsmixer_multi')

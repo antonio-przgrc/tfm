@@ -159,3 +159,11 @@ Para ello, se utilizan datos obtenidos del Boletín del Petróleo de la Comisió
 \section{Modelos}
 
 \subsection{Prophet}
+
+Prophet \cite{prophet} es una herramienta desarrollada por Facebook (ahora conocida como Meta) para el análisis de series temporales. Está especializada en datos que presentan patrones estacionales y tendencia. Está enfocada a ser fácil de usar y no requerir mucha configuración y se utiliza como librería en Python o R \cite{R}. El modelo incluido descompone la serie temporal en tendencia y estacionalidad. Además, permite añadir los festivos locales para mejorar las predicciones.
+
+Se utiliza un modelo en el que la tendencia se modela de forma flexible, permitiendo cambios no lineales mediante \textit{changepoints}. Evita los valores atípicos y los datos faltantes, dando robustez al modelo frente a series temporales ruidosas o incompletas.
+
+Su uso en este trabajo es de \textit{plug and play}, ya que se instancia la librería por defecto, a excepción de la especificación de los festivos de España (la librería no incluye la posiblidad de añadir los festivos de Andalucía).
+
+\subsection{}

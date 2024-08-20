@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+# Días festivos
 df = pd.read_csv(f'~/tfm/code/data/holidays.csv')
 df['fecha'] = pd.to_datetime(df['fecha'], format="%Y-%m-%d")
 df = df.set_index(['fecha'])
