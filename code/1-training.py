@@ -20,8 +20,6 @@ from darts.utils.missing_values import fill_missing_values
 from darts.utils.likelihood_models import GaussianLikelihood
 from darts.timeseries import concatenate
 
-from neuralprophet import NeuralProphet, utils
-
 import warnings
 warnings.filterwarnings('ignore')
 
