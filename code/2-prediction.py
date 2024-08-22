@@ -94,30 +94,30 @@ train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
 
 
 for name in names:
-   # mod_blockrnn = BlockRNNModel.load(f'models/{name}/blockrnn')
+    mod_blockrnn = BlockRNNModel.load(f'models/{name}/blockrnn')
     mod_blockrnn_multi = BlockRNNModel.load(f'models/{name}/blockrnn_multi')
-    #mod_blocklstm = BlockRNNModel.load(f'models/{name}/blocklstm')
+    mod_blocklstm = BlockRNNModel.load(f'models/{name}/blocklstm')
     mod_blocklstm_multi = BlockRNNModel.load(f'models/{name}/blocklstm_multi')
-#    mod_blockgru = BlockRNNModel.load(f'models/{name}/blockgru')
+    mod_blockgru = BlockRNNModel.load(f'models/{name}/blockgru')
     mod_blockgru_multi =  BlockRNNModel.load(f'models/{name}/blockgru_multi')
- #   mod_prophet = Prophet.load(f'models/{name}/prophet')
-#    mod_nbeats = NBEATSModel.load(f'models/{name}/nbeats')
+    mod_prophet = Prophet.load(f'models/{name}/prophet')
+    mod_nbeats = NBEATSModel.load(f'models/{name}/nbeats')
     mod_nbeats_multi = NBEATSModel.load(f'models/{name}/nbeats_multi')
- #   mod_nhits = NHiTSModel.load(f'models/{name}/nhits')
+    mod_nhits = NHiTSModel.load(f'models/{name}/nhits')
     mod_nhits_multi = NHiTSModel.load(f'models/{name}/nhits_multi')
-  #  mod_tcn = TCNModel.load(f'models/{name}/tcn')
+    mod_tcn = TCNModel.load(f'models/{name}/tcn')
     mod_tcn_multi = TCNModel.load(f'models/{name}/tcn_multi')
-   # mod_dlinear = DLinearModel.load(f'models/{name}/dlinear')
+    mod_dlinear = DLinearModel.load(f'models/{name}/dlinear')
     mod_dlinear_multi = DLinearModel.load(f'models/{name}/dlinear_multi')
-    #mod_nlinear = NLinearModel.load(f'models/{name}/nlinear')
+    mod_nlinear = NLinearModel.load(f'models/{name}/nlinear')
     mod_nlinear_multi = NLinearModel.load(f'models/{name}/nlinear_multi')
-#    mod_tide = TiDEModel.load(f'models/{name}/tide')
+    mod_tide = TiDEModel.load(f'models/{name}/tide')
     mod_tide_multi =  TiDEModel.load(f'models/{name}/tide_multi')
- #   mod_tsmixer = TSMixerModel.load(f'models/{name}/tsmixer')
+    mod_tsmixer = TSMixerModel.load(f'models/{name}/tsmixer')
     mod_tsmixer_multi = TSMixerModel.load(f'models/{name}/tsmixer_multi')
 
-  #  models_uni = [mod_blockrnn, mod_blocklstm, mod_blockgru, mod_nbeats, mod_nhits,
-   # mod_tcn, mod_dlinear, mod_nlinear, mod_tide, mod_tsmixer]
+    models_uni = [mod_blockrnn, mod_blocklstm, mod_blockgru, mod_nbeats, mod_nhits,
+    mod_tcn, mod_dlinear, mod_nlinear, mod_tide, mod_tsmixer]
 
     models_multi = [mod_blockrnn_multi, mod_blocklstm_multi, mod_blockgru_multi, mod_nbeats_multi,
     mod_nhits_multi, mod_tcn_multi, mod_dlinear_multi, mod_nlinear_multi, mod_tide_multi, mod_tsmixer_multi]
@@ -125,75 +125,24 @@ for name in names:
     resultados = test[name].pd_dataframe()
     errores = pd.DataFrame()
 
-    # print(name)
-    # print('prophet')
-    # pred = mod_prophet.predict(n=130)
-    # predicion = pred[name].pd_dataframe().rename({name:'prophet'}, axis=1)
-    # resultados = pd.concat([resultados, predicion], axis=1)
+    print(name)
+    print('prophet')
+    pred = mod_prophet.predict(n=130)
+    predicion = pred[name].pd_dataframe().rename({name:'prophet'}, axis=1)
+    resultados = pd.concat([resultados, predicion], axis=1)
 
-    # # Se realizan las predicciones de los modelos sin regresor
-    # for i, model in enumerate(models_uni):
-    #     print(model.model_name)
-    #     pred = model.predict(n=130)
-    #     predicion = pred[name].pd_dataframe().rename({name:model.model_name}, axis=1)
-    #     resultados = pd.concat([resultados, predicion], axis=1)
+    # Se realizan las predicciones de los modelos sin regresor
+    for i, model in enumerate(models_uni):
+        print(model.model_name)
+        pred = model.predict(n=130)
+        predicion = pred[name].pd_dataframe().rename({name:model.model_name}, axis=1)
+        resultados = pd.concat([resultados, predicion], axis=1)
     
     # # Se realizan las predicciones de los modelos con regresor
     for i, model in enumerate(models_multi):
         print(model.model_name)
         pred = model.predict(n=130)
-        predicion = pred[name].pd_dataframe().rename({name:model.model_name+'multi'}, axis=1)
+        predicion = pred[name].pd_dataframe().rename({name:model.model_name+'_multi'}, axis=1)
         resultados = pd.concat([resultados, predicion], axis=1)
-        # err = rmse(pred[name], test[name])
-        # errores = pd.concat([errores, pd.DataFrame({model_name[i]:[err]}, index=['Diario_escalado'])],axis=1)
-        #pred[name].plot(label=model_name[i])
-
-    # # Se desescala las predicciones y calcula el error RMSE desescalado
-    # errores_aux = pd.DataFrame()
-    # for columna in resultados.columns:
-    #     resultados[columna] = scaler.inverse_transform(resultados[[columna]])
-    #     if columna == name:
-    #         continue
-    #     err=rootmse(resultados[name], resultados[columna])
-    #     errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err]}, index=['Diario'])],axis=1)
-    # errores = pd.concat([errores, errores_aux])
-
-    # # Predicciones para NeuralProphet
-    # predicion = mod_neuralprophet.predict(test_df[['fecha',name]].rename({'fecha':'ds', name:'y'}, axis=1))
-    # predicion = predicion.rename({'ds':'fecha', 'yhat1':'NeuralProphet'}, axis=1)
-    # predicion['fecha'] = pd.to_datetime(predicion['fecha'], format="%Y%m%d")
-    # predicion = predicion.set_index(['fecha'])
-    # predicion = predicion[['NeuralProphet']]
-    # resultados = pd.concat([resultados, predicion], axis=1)
-    
-    # err1m=rootmse(resultados[:datetime(2024,1,31)][name], resultados[:datetime(2024,1,31)][columna])
-    # err3m=rootmse(resultados[:datetime(2024,3,31)][name], resultados[:datetime(2024,3,31)][columna])
-    # err6m=rootmse(resultados[:datetime(2024,6,30)][name], resultados[:datetime(2024,6,30)][columna])
-    # errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err1m]}, index=['Mensual 1 mes'])],axis=1)
-    # errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err3m]}, index=['Mensual 3 meses'])],axis=1)
-    # errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err6m]}, index=['Mensual 6 meses'])],axis=1)
-
-    # err=rootmse(resultados[name], resultados[columna])
-    # errores = pd.concat([errores, pd.DataFrame({'NeuralProphet':[err]}, index=['Diario'])],axis=1)
-
-    # #Agrupación por mes
-    # resultados_mes = resultados.groupby(pd.Grouper(freq='M'))
-    # resultados_mes = resultados_mes.sum()
-
-    # # Se calcula el error RMSE con los datos agrupados por meses
-    # errores_aux = pd.DataFrame()
-    # for columna in resultados_mes.columns:
-    #     if columna == name:
-    #         continue
-    #     err1m=rootmse(resultados_mes[:datetime(2024,1,31)][name], resultados_mes[:datetime(2024,1,31)][columna])
-    #     err3m=rootmse(resultados_mes[:datetime(2024,3,31)][name], resultados_mes[:datetime(2024,3,31)][columna])
-    #     err6m=rootmse(resultados_mes[:datetime(2024,6,30)][name], resultados_mes[:datetime(2024,6,30)][columna])
-    #     errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err1m]}, index=['Mensual 1 mes'])],axis=1)
-    #     errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err3m]}, index=['Mensual 3 meses'])],axis=1)
-    #     errores_aux = pd.concat([errores_aux, pd.DataFrame({columna:[err6m]}, index=['Mensual 6 meses'])],axis=1)
-    # errores = pd.concat([errores, errores_aux])
-
+        
     resultados.to_csv(f'results/resultados_{name}.csv')
-    # errores_aux.fillna(0, inplace=True)
-    # errores_aux.to_csv(f'results/errores_{name}.csv')
-    # print(errores_aux)

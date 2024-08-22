@@ -104,9 +104,6 @@ for name in names:
     df_res = df_res.set_index('fecha')
     df_res = df_res[:130]
 
-    # # Descomentar para tener valores absolutos
-    # df_res[df_res.columns] = scaler.inverse_transform(df_res)
-
     df_res_m = df_res.groupby(pd.Grouper(freq='MS')).sum()
     df_res_q = df_res.groupby(pd.Grouper(freq='QS')).sum()
     df_res_y = df_res.groupby(pd.Grouper(freq='YS')).sum()
@@ -120,5 +117,10 @@ for name in names:
         error_q = rmse(df_res_q[name], df_res_q[model])
         error_y = rmse(df_res_y[name], df_res_y[model])
         errores = pd.concat([errores ,pd.DataFrame({model:[error_d, error_m, error_q, error_y]}, index=idx_names)],axis=1)
-    
+    errores2 = pd.DataFrame()
+    errores2[errores.columns] = scaler.inverse_transform(errores)
+    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 'Error cuatrimestre (abs)','Error semestre (abs)']
+
+    errores = pd.concat([errores, errores2])    
+
     errores.to_csv(f'results/errores_{name}.csv')
