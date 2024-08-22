@@ -11,7 +11,7 @@ Python \cite{python} es un lenguaje de programación interpretado de alto nivel 
 	\item Darts.
 \end{itemize}
 
-Pandas \cite{pandas} es una libería que permite el uso de \textit{dataframes}, unas estructuras de datos tabulares basada en columnas e índices, que permiten realizar multitud de operaciones. Scikit-learn \cite{scikit-learn} es una librería de aprendizaje automático muy completa, de la cual en este trabajo se utiliza sus herramientas para el cálculo de métricas de errores. Matplotlib \cite{matplotlib} por su parte es la libería base para la creación de gráficas en Python.
+Pandas \cite{pandas} es una libería que permite el uso de \textit{dataframes}, unas estructuras de datos tabulares basada en columnas e índices, que permiten realizar multitud de operaciones. Scikit-learn \cite{scikit-learn} es una librería de aprendizaje automático muy completa, de la cual en este trabajo se utiliza sus herramientas para el cálculo de métricas de errores y el escalador de datos \textit{MinMaxScaler}. Matplotlib \cite{matplotlib} por su parte es la libería base para la creación de gráficas en Python.
 
 Darts \cite{darts} merece una mención especial, ya que es la base del proyecto. Se trata de una librería \textit{open-source} creada por la empresa suiza Unit8. Está especializada en la realización de predicciones en series temporales o \textit{forecasting}. Cuenta con multitud de modelos integrados, desde probabilísticos como ARIMA hasta modelos de \textit{deep learning} basados en PyTorch \cite{pytorch}. Simplifica el uso de distintos modelos utilizando un esquema común para entrenamiento y predicción, permitiendo realizar experimentos con múltiples modelos con facilidad. Cuenta además con herramientas tanto para el preprocesamiento de los datos como para el análisis posterior.
 
@@ -28,16 +28,16 @@ En la empresa de recambios de automóvil de estudio, las distintas referencias s
 
 En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos. Sin embargo, para mantener coherencia entre todos los datos, se incluyen los días festivos que sea entre semana, que tendrán 0 unidades vendidas.
 
-Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref*{3-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
+Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref*{ej-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
 
-\lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
+\lstinputlisting[caption=Carga de datos, label={ej-codcarga}]{codigos/carga_datos.py}
 
 A continuación, en la Tabla \ref*{3-cabezafiltros} se observa una muestra con los cinco primeros datos como referencia de la estructura de los datos de las series.
 
 \begin{table}[H]
 	\ttabbox[\FBwidth]
 	{\caption{Cabeza de la serie histórica de ventas de filtros}\label{3-cabezafiltros}}
-	{\begin{tabular}{|P{3 cm}|P{4 cm}|}
+	{\begin{tabular}{|c|c|}
 		\hline
         \textbf{Fecha} & \textbf{Unidades vendidas} \\
         \hline

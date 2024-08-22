@@ -1,26 +1,11 @@
-from datetime import datetime, timedelta
-
-import pandas as pd
-
-from copy import copy as cp
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import root_mean_squared_error as rootmse
-
-import matplotlib.pyplot as plt
-
-from darts import TimeSeries
-from darts.utils.callbacks import TFMProgressBar
-from darts.dataprocessing.transformers import Scaler
-from darts.models import RNNModel, TransformerModel, Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel
-from darts.metrics import rmse
-from darts.utils.statistics import check_seasonality, plot_acf
-import darts.utils.timeseries_generation as tg
-from darts.utils.timeseries_generation import datetime_attribute_timeseries
-from darts.utils.missing_values import fill_missing_values
-from darts.utils.likelihood_models import GaussianLikelihood
-from darts.timeseries import concatenate
-
 import warnings
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+import matplotlib.pyplot as plt
+from darts import TimeSeries
+from darts.dataprocessing.transformers import Scaler
+from darts.models import Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel
+
 warnings.filterwarnings('ignore')
 
 def tratamiento(fichero):
@@ -57,7 +42,7 @@ def grafico(dataframe):
 
 df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 'data/aceites.csv', 'data/limpiaparabrisas.csv'])
 
-# Meteorología
+# Meteorologia
 df2 = pd.read_csv('data/meteo_olvera.csv', decimal=',')
 df2['fecha'] = pd.to_datetime(df2['fecha'], format="%Y-%m-%d")
 df2.set_index('fecha', inplace=True)

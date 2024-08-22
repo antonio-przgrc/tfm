@@ -1,26 +1,12 @@
-from datetime import datetime, timedelta
-
-import pandas as pd
-
-from copy import copy as cp
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_absolute_percentage_error as mape
-from sklearn.metrics import root_mean_squared_error as rmse
-
-import matplotlib.pyplot as plt
-
-from darts import TimeSeries
-from darts.utils.callbacks import TFMProgressBar
-from darts.dataprocessing.transformers import Scaler
-from darts.models import RNNModel, TransformerModel, Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel
-from darts.utils.statistics import check_seasonality, plot_acf
-import darts.utils.timeseries_generation as tg
-from darts.utils.timeseries_generation import datetime_attribute_timeseries
-from darts.utils.missing_values import fill_missing_values
-from darts.utils.likelihood_models import GaussianLikelihood
-from darts.timeseries import concatenate
-
 import warnings
+from datetime import datetime
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import root_mean_squared_error as rmse
+import matplotlib.pyplot as plt
+from darts import TimeSeries
+from darts.dataprocessing.transformers import Scaler
+
 warnings.filterwarnings('ignore')
 
 def tratamiento(fichero):
@@ -57,7 +43,7 @@ def grafico(dataframe):
 
 df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 'data/aceites.csv', 'data/limpiaparabrisas.csv'])
 
-# Meteorología
+# Meteorologia
 df2 = pd.read_csv('data/meteo_olvera.csv', decimal=',')
 df2['fecha'] = pd.to_datetime(df2['fecha'], format="%Y-%m-%d")
 df2.set_index('fecha', inplace=True)
@@ -104,10 +90,10 @@ for name in names:
     df_res = df_res.set_index('fecha')
     df_res = df_res[:130]
 
-    df_res_m = df_res.groupby(pd.Grouper(freq='MS')).sum()
-    df_res_q = df_res.groupby(pd.Grouper(freq='QS')).sum()
-    df_res_y = df_res.groupby(pd.Grouper(freq='YS')).sum()
-    
+    df_res_m = df_res.groupby(pd.Grouper(freq='MS')).sum()[:datetime(2024,1,31)]
+    df_res_q = df_res.groupby(pd.Grouper(freq='QS')).sum()[:datetime(2024,3,31)]
+    df_res_y = df_res.groupby(pd.Grouper(freq='YS')).sum()[:datetime(2024,6,30)]
+
     idx_names = ['Error diario', 'Error mensual', 'Error cuatrimestre','Error semestre']
     for model in df_res.columns:
         if model == name:
@@ -116,11 +102,12 @@ for name in names:
         error_m = rmse(df_res_m[name], df_res_m[model])
         error_q = rmse(df_res_q[name], df_res_q[model])
         error_y = rmse(df_res_y[name], df_res_y[model])
-        errores = pd.concat([errores ,pd.DataFrame({model:[error_d, error_m, error_q, error_y]}, index=idx_names)],axis=1)
+        errores = pd.concat([errores, pd.DataFrame({model:[error_d, error_m, error_q, error_y]}, index=idx_names)],axis=1)
     errores2 = pd.DataFrame()
     errores2[errores.columns] = scaler.inverse_transform(errores)
-    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 'Error cuatrimestre (abs)','Error semestre (abs)']
+    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 
+                      'Error cuatrimestre (abs)','Error semestre (abs)']
 
-    errores = pd.concat([errores, errores2])    
+    errores = pd.concat([errores, errores2])
 
     errores.to_csv(f'results/errores_{name}.csv')
