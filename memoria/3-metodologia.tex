@@ -151,6 +151,8 @@ A pesar de que el enfoque de las predicciones es univariable, ya que solo se bus
 
 Los días festivos las tiendas permanecen cerradas, por lo que las ventas son cero. Como las series de datos de estudio incluyen todos los días de lunes a viernes incluyendo los festivos, es buena idea añadir como regresor una serie donde se indique los días que son festivos. En este sentido, la librería Darts añade la funcionalidad de añadir una una serie extra con los días laborables de España y, además, de Andalucía. Se trata de una serie con una variable binaria donde 1 indica que es día festivo y 0 indica que no lo es. Se puede observar en la Figura \ref*{3-dias_festivos} los días festivos durante el rango de fechas del caso de estudio.
 
+Además, algunos modelos utilizados cuentan con la posiblidad de utilizar \textit{covariates} futuras. Por ello, los que lo permitan, utilizarán los datos de los días festivos para realizar las predicciones en el periodo de predicción.
+
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
 	\caption{Días festivos de España y Andalucía}\label{3-dias_festivos}

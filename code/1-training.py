@@ -50,7 +50,7 @@ df2.set_index('fecha', inplace=True)
 df2 = df2[['tmed', 'prec', 'hrMedia']]
 df2 = df2.resample('B').first()
 df2 = df2.fillna(method='backfill')
-df2 = df2['2012':]
+df2 = df2["2012-01-01":"2023-12-31"]
 df = pd.concat([df, df2], axis=1)
 
 # Precio combustible
@@ -58,7 +58,7 @@ df2 = pd.read_csv('data/carburante.csv', decimal=',')
 df2['fecha'] = pd.to_datetime(df2['fecha']+'0', format="%Y-%W%w")
 df2 = df2.set_index('fecha').sort_index()
 df2 = df2.resample('B').first().ffill()
-df2 = df2['2012':]
+df2 = df2["2012-01-01":"2023-12-31"]
 
 df = pd.concat([df, df2], axis=1)
 
@@ -84,7 +84,7 @@ BATCH = 256
 
 mod_blockrnn = BlockRNNModel(
     model='RNN',
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
@@ -93,13 +93,14 @@ mod_blockrnn = BlockRNNModel(
     batch_size=BATCH,
     show_warnings=True,
     model_name='rnn',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_blockrnn_multi = cp(mod_blockrnn)
 
 mod_blocklstm = BlockRNNModel(
     model='LSTM',
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
@@ -108,13 +109,14 @@ mod_blocklstm = BlockRNNModel(
     batch_size=BATCH,
     show_warnings=True,
     model_name='lstm',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_blocklstm_multi = cp(mod_blocklstm)
 
 mod_blockgru = BlockRNNModel(
     model='GRU',
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     hidden_dim=25,
     n_rnn_layers=2,
@@ -123,7 +125,8 @@ mod_blockgru = BlockRNNModel(
     batch_size=BATCH,
     show_warnings=True,
     model_name='gru',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_blockgru_multi = cp(mod_blockgru)
 
@@ -137,26 +140,28 @@ mod_prophet = Prophet(
 )
 
 mod_nbeats = NBEATSModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     dropout=0.2,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='nbeats',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_nbeats_multi = cp(mod_nbeats)
 
 mod_nhits = NHiTSModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     dropout=0.2,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='nhits',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_nhits_multi = cp(mod_nhits)
 
@@ -168,53 +173,58 @@ mod_tcn = TCNModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='tcn',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'past': ['quarter','dayofyear']}}
 )
 mod_tcn_multi = cp(mod_tcn)
 
 mod_dlinear = DLinearModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='dlinear',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'future': ['quarter','dayofyear']}}
 )
 mod_dlinear_multi = cp(mod_dlinear)
 
 mod_nlinear = NLinearModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='nlinear',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'future': ['quarter','dayofyear']}}
 )
 mod_nlinear_multi = cp(mod_nlinear)
 
 mod_tide = TiDEModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     dropout=0.2,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='tide',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'future': ['quarter','dayofyear']}}
 )
 mod_tide_multi = cp(mod_tide)
 
 mod_tsmixer = TSMixerModel(
-    input_chunk_length=130,
+    input_chunk_length=260,
     output_chunk_length=130,
     dropout=0.2,
     n_epochs=EPOCHS,
     show_warnings=True,
     batch_size=BATCH,
     model_name='tsmixer',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True},
+    add_encoders={'cyclic': {'future': ['quarter','dayofyear']}}
 )
 mod_tsmixer_multi = cp(mod_tsmixer)
 

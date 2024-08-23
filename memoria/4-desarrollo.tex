@@ -1,6 +1,6 @@
 \chapter{Desarrollo}\label{cap4}
 
-El proyecto se divide en cuatro grandes bloques:
+El código completo se encuentra en los Anexos del trabajo, en este capítulo se trocea a conveniencia para una mejor explicación y comprensión del mismo. El proyecto se divide en cuatro grandes bloques:
 
 \begin{itemize}
     \item Preprocesamiento de los datos.
@@ -9,10 +9,55 @@ El proyecto se divide en cuatro grandes bloques:
     \item Cálculo de errores.
 \end{itemize}
 
-El código completo se encuentra en los Anexos del trabajo, en este capítulo se trocea a conveniencia para una mejor explicación y comprensión del mismo.
+Un elemento común a todos los puntos es la importación de librerías. Para ello, en el Código \ref*{1-imports} se muestra la importación de todas las librerías que se utilizan en el proyecto. En primer lugar, tenemos la librería \textit{copy}, que se utiliza para copiar objetos (en este caso, copiar modelos para no tener que definirlos dos veces), \textit{warnings} para ignorar las advertencias del sistema y limpiar la salida y \textit{datetime}, una librería para definir fechas. Luego, se importan \textit{pandas}, \textit{matplotlib}, \textit{sklearn} (también conocido como \textit{scikit-learn}) y \textit{darts}, ya definidas en el Capítulo \ref{cap3}.
 
 \lstinputlisting[caption=Importación de librerías, label={1-imports}]{codigos/1-imports.py}
+
+\section{Preprocesamiento}
+
+La primera operación a realizar es la carga y el procesamiento de los datos para su estudio. De esta forma, el objetivo es tener los datos disponibles para los modelos en la forma correcta.
+
+En el Código \ref*{2-tratamiento}, se define la función \textit{tratamiento}, que permite cargar los datos de un archivo csv que recibe como entrada y devuelve un \textit{dataframe} o tabla de datos junto con el nombre del archivo. Se define la fecha como el índice de la tabla y se reagrupan los datos para que solo aparezcan días de lunes a viernes y, si en algún caso no exista dicho día, se cree y se le asigne un valor de 0. Si algún valor es negativo (a causa de una devolución), se ignora y se convierte a 0 también. Por último, se especifica las fechas a tratar y termina la función devolviendo los datos requeridos.
+
 \lstinputlisting[caption=Carga de archivos .csv y tratamiento de los datos, label={2-tratamiento}]{codigos/2-tratamiento.py}
+
+A continuación, en el Código \ref*{3-agrupar} se muestra la función \textit{agrupar}. Esta función automatiza la carga de todos los archivos csv. Para ello, recibe una lista con los ficheros a cargar, llama a la función \textit{tratamiento} para obtener su tabla y las agrupa en una tabla única donde cada columna es una de las familias de producto de estudio.
+
 \lstinputlisting[caption=Agrupación de todas las series de datos, label={3-agrupar}]{codigos/3-agrupar.py}
+
+El siguiente punto es añadir a la tabla de datos los datos de los regresores meteorológicos y del precio del carburante. El Código \ref*{4-meteocarb} muestra la carga de estos datos de sus respectivos archivos csv. En el caso de los datos meteorológicos se toman los días laborables y, si algún dato falta, se rellena con el del día anterior.
+
+Por otro lado, los datos del precio del carburante son semanales, por lo que para que el dato sea coherente con el resto, se extiende a lo largo de cada semana.
+
 \lstinputlisting[caption=Carga de datos meteorológicos y precios de carburantes, label={4-meteocarb}]{codigos/4-meteocarb.py}
-\lstinputlisting[caption=Creación de objetos TimeSeries, label={5-timeseries}]{codigos/5-timeseries.py}
+
+Para terminar con el procesamiento de los datos, en el Código \ref*{5-timeseries} se crea el objeto de la clase \textit{TimeSeries} de la librería \textit{Darts}. Para ello, se proveen los datos mediante las tablas de datos creadas previamente. Además, se le añaden los días festivos con un método de la propia clase.
+
+Por otro lado, para mejorar la estabilidad y eficiencia de los modelos utilizando un escalador que convierte los datos entre los valores 0 y 1 según el máximo y mínimo de cada serie.
+
+Finalmente, se divide entre serie para entrenamiento y serie de test. Los datos pertenecientes al test serán los de 2024 en adelante, mientras que los de entrenamiento serán los previos.
+
+\lstinputlisting[caption=Creación de objeto TimeSeries, label={5-timeseries}]{codigos/5-timeseries.py}
+
+
+\section{Definición y entrenamiento de modelos}
+
+En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}. En primer lugar se define las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto.
+
+Todos los modelos se configuran con características similares para comparar sus comportamientos. Los bloques de entrada de entrenamiento es de 260 datos, un año contando que solo se cuentan los días de lunes a viernes. Por otro lado, el bloque de salida es de 130 datos para que la salida sea de medio año, tamaño de los datos de test. 
+
+Además, se cuenta con la variable \textit{dropout} de 0.2, que es la dilución o abandono. Esta variable se utiliza para que los nodos se puedan regularizar y reducir el sobreajuste.
+
+Al definir los modelos se permite añadir otros regresores externos temporales. En este caso, se añaden los regresores cíclicos que representan cada cuatrimestre y el día del año en cuestión. Cada regresor se divide en dos columnas extras, siendo una el seno y otra el coseno de la variable. 
+
+Los modelos se definen una vez y se realiza una copia de los mismos. El modelo original será entrenado solo con la serie de datos de estudio, mientras que la copia, renombrada con el sufijo "\_multi", se entrena utilizando los regresores externos existentes.
+
+\lstinputlisting[caption=Definición de modelos de aprendizaje automático, label={6-definicion}]{codigos/6-definicion.py}
+
+Como se necesita entrenar los mismos modelos en varias ocasiones para las distintas familias de producto, se crea una función auxiliar que reinicie los modelos cada vez que se tenga que cambiar de famlia. Esta función se define en el Código \ref*{7-reset}.
+
+\lstinputlisting[caption=Definición de función de reinicio de modelos, label={7-reset}]{codigos/7-reset.py}
+
+Por último, se realiza el entrenamiento propiamente dicho utilizando el método \textit{fit()} de la clase \textit{TimeSeries} especificando la serie de datos de entrenamiento. Para los modelos con regresores externos además, se les añaden las \textit{covariates} definidas previamente. Después de entrenar cada modelo, los parámetros del mismo se guardan para poder ser utilizados en otras sesiones sin tener que volver a entrenarlo. El Código \ref{8-train} muestra el proceso de entrenamiento. 
+
+\lstinputlisting[caption=Entrenamiento de modelos, label={8-train}]{codigos/8-train.py}
