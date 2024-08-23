@@ -13,4 +13,3 @@ transformer = Scaler(scaler)
 series = transformer.fit_transform(series)
 
 train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
-    

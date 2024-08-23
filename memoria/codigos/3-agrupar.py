@@ -8,5 +8,4 @@ def agrupar(ficheros: list):
         lista.append(name)
     return df, lista
 
-df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 
-                     'data/aceites.csv', 'data/limpiaparabrisas.csv'])
+df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 'data/aceites.csv', 'data/limpiaparabrisas.csv'])

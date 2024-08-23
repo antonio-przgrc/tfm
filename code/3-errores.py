@@ -105,8 +105,7 @@ for name in names:
         errores = pd.concat([errores, pd.DataFrame({model:[error_d, error_m, error_q, error_y]}, index=idx_names)],axis=1)
     errores2 = pd.DataFrame()
     errores2[errores.columns] = scaler.inverse_transform(errores)
-    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 
-                      'Error cuatrimestre (abs)','Error semestre (abs)']
+    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 'Error cuatrimestre (abs)','Error semestre (abs)']
 
     errores = pd.concat([errores, errores2])
 

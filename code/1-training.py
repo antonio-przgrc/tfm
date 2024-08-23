@@ -41,8 +41,7 @@ def grafico(dataframe):
     ax.grid(which='minor', alpha = 0.25, linestyle='--')
     fig.autofmt_xdate()
 
-df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 
-                     'data/aceites.csv', 'data/limpiaparabrisas.csv'])
+df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 'data/aceites.csv', 'data/limpiaparabrisas.csv'])
 
 # Meteorologia
 df2 = pd.read_csv('data/meteo_olvera.csv', decimal=',')
@@ -92,7 +91,6 @@ mod_blockrnn = BlockRNNModel(
     dropout=0.2,
     n_epochs=EPOCHS,
     batch_size=BATCH,
-    #optimizer_kwargs={"lr": 1e-3},
     show_warnings=True,
     model_name='rnn',
     pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
@@ -108,7 +106,6 @@ mod_blocklstm = BlockRNNModel(
     dropout=0.2,
     n_epochs=EPOCHS,
     batch_size=BATCH,
-    #optimizer_kwargs={"lr": 1e-3},
     show_warnings=True,
     model_name='lstm',
     pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
@@ -124,7 +121,6 @@ mod_blockgru = BlockRNNModel(
     dropout=0.2,
     n_epochs=EPOCHS,
     batch_size=BATCH,
-    #optimizer_kwargs={"lr": 1e-3},
     show_warnings=True,
     model_name='gru',
     pl_trainer_kwargs={"precision": '64', "accelerator": "cpu"}
@@ -148,8 +144,7 @@ mod_nbeats = NBEATSModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='nbeats',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_nbeats_multi = cp(mod_nbeats)
 
@@ -161,8 +156,7 @@ mod_nhits = NHiTSModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='nhits',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_nhits_multi = cp(mod_nhits)
 
@@ -174,8 +168,7 @@ mod_tcn = TCNModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='tcn',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_tcn_multi = cp(mod_tcn)
 
@@ -186,8 +179,7 @@ mod_dlinear = DLinearModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='dlinear',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_dlinear_multi = cp(mod_dlinear)
 
@@ -198,8 +190,7 @@ mod_nlinear = NLinearModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='nlinear',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_nlinear_multi = cp(mod_nlinear)
 
@@ -211,8 +202,7 @@ mod_tide = TiDEModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='tide',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_tide_multi = cp(mod_tide)
 
@@ -224,8 +214,7 @@ mod_tsmixer = TSMixerModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='tsmixer',
-    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu",
-                       "devices": -1, "auto_select_gpus": True}
+    pl_trainer_kwargs={"precision": '64', "accelerator": "gpu", "devices": -1, "auto_select_gpus": True}
 )
 mod_tsmixer_multi = cp(mod_tsmixer)
 

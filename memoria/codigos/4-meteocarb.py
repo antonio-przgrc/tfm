@@ -1,4 +1,4 @@
-# Meteorología
+# Meteorologia
 df2 = pd.read_csv('data/meteo_olvera.csv', decimal=',')
 df2['fecha'] = pd.to_datetime(df2['fecha'], format="%Y-%m-%d")
 df2.set_index('fecha', inplace=True)

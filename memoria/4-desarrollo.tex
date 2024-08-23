@@ -1,9 +1,18 @@
 \chapter{Desarrollo}\label{cap4}
 
-En primer lugar, se tienen que cargar los datos extraídos del ERP.
+El proyecto se divide en cuatro grandes bloques:
 
-\lstinputlisting[caption=Carga de datos, label={1-imports}]{codigos/carga_datos.py}
-\lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
-\lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
-\lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
-\lstinputlisting[caption=Carga de datos, label={3-codcarga}]{codigos/carga_datos.py}
+\begin{itemize}
+    \item Preprocesamiento de los datos.
+    \item Entrenamiento.
+    \item Predicción.
+    \item Cálculo de errores.
+\end{itemize}
+
+El código completo se encuentra en los Anexos del trabajo, en este capítulo se trocea a conveniencia para una mejor explicación y comprensión del mismo.
+
+\lstinputlisting[caption=Importación de librerías, label={1-imports}]{codigos/1-imports.py}
+\lstinputlisting[caption=Carga de archivos .csv y tratamiento de los datos, label={2-tratamiento}]{codigos/2-tratamiento.py}
+\lstinputlisting[caption=Agrupación de todas las series de datos, label={3-agrupar}]{codigos/3-agrupar.py}
+\lstinputlisting[caption=Carga de datos meteorológicos y precios de carburantes, label={4-meteocarb}]{codigos/4-meteocarb.py}
+\lstinputlisting[caption=Creación de objetos TimeSeries, label={5-timeseries}]{codigos/5-timeseries.py}

@@ -1,5 +1,7 @@
 \chapter{Metodología}\label{cap3}
 
+En este capítulo se detallan las distintas herramientas y elementos utilizados en el trabajo. En primer lugar, se comienza por las librerías de Python utilizadas, continuando con los datos de estudio y los de apoyo y, terminando por los modelos de predicción.
+
 \section{Liberías de Python}
 
 Python \cite{python} es un lenguaje de programación interpretado de alto nivel que cuenta con multitud de librerías útiles para el análisis y la ciencia de datos. En este proyecto, las librerías utilizadas son:
@@ -111,7 +113,7 @@ Otra familia importante es la de los aceites industriales. Se trata de productos
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_aceites.pdf}}
 \end{figure}
 
-
+En la Figura \ref*{3-comp_aceites} se muestra el desglose de los componentes de la serie. A nivel semanal es de resaltar que los viernes hay un mayor número de ventas, mientras que a nivel anual se observa que la estacionalidad es trimestral.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -157,6 +159,20 @@ Los días festivos las tiendas permanecen cerradas, por lo que las ventas son ce
 \end{figure}
 
 \subsection{Meteorología}
+
+Las precipitaciones y la temperatura son elementos que causan desgaste en los vehículos. Además, estas variables son estacionales, por lo que puede favorecer la comprensión de comportamientos de las series de datos por parte de los modelos.
+
+Para ello, se toman datos proveídos por Agencia Estatal de Meteorología en la plataforma AEMET OpenData \cite{aemet}. Los datos obtenidos pertenecen a las climatologías diarias recogidas en la estación meteorológica de Olvera, en la provincia de Cádiz. Esta localidad se encuentra localizada aproximadamente en el centro geográfico de todas las tiendas de la empresa y su climatología es extrapolable al resto.
+
+De todos los datos que ofrece la plataforma, se toman el de temperatura media diaria, precipitaciones y humedad media diaria. En la Figura \ref*{3-meteo} se muestra una gráfica de los datos en el rango temporal del estudio. Se observa la estacionalidad de los datos de temperatura y humedad, ya que son variables con poca variación diaria. Por otro lado, las precipitaciones son datos puntuales, aunque suelen aparecer en las mismas fechas de cada año.
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth] {
+	\caption{Gráfica de los datos meteorológicos}\label{3-meteo}
+	}
+	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_meteo.pdf}}
+\end{figure}
+
 
 \subsection{Precio del carburante}
 
