@@ -13,7 +13,7 @@ Un elemento común a todos los puntos es la importación de librerías. Para ell
 
 \lstinputlisting[caption=Importación de librerías, label={1-imports}]{codigos/1-imports.py}
 
-\section{Preprocesamiento}
+\section{Preprocesamiento}\label{cap4-preproc}
 
 La primera operación a realizar es la carga y el procesamiento de los datos para su estudio. De esta forma, el objetivo es tener los datos disponibles para los modelos en la forma correcta.
 
@@ -40,7 +40,7 @@ Finalmente, se divide entre serie para entrenamiento y serie de test. Los datos 
 \lstinputlisting[caption=Creación de objeto TimeSeries, label={5-timeseries}]{codigos/5-timeseries.py}
 
 
-\section{Definición y entrenamiento de modelos}
+\section{Definición y entrenamiento de modelos}\label{cap4-entreno}
 
 En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}. En primer lugar se define las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto.
 
@@ -61,3 +61,22 @@ Como se necesita entrenar los mismos modelos en varias ocasiones para las distin
 Por último, se realiza el entrenamiento propiamente dicho utilizando el método \textit{fit()} de la clase \textit{TimeSeries} especificando la serie de datos de entrenamiento. Para los modelos con regresores externos además, se les añaden las \textit{covariates} definidas previamente. Después de entrenar cada modelo, los parámetros del mismo se guardan para poder ser utilizados en otras sesiones sin tener que volver a entrenarlo. El Código \ref{8-train} muestra el proceso de entrenamiento. 
 
 \lstinputlisting[caption=Entrenamiento de modelos, label={8-train}]{codigos/8-train.py}
+
+\section{Predicción}
+
+Para realizar las predicciones, los datos de test ya han sido cargados en la sección \ref{cap4-preproc} y los modelos han sido ya entrenados en la sección \ref{cap4-entreno}. Las predicciones se realizan para cada familia en particular, por lo que se tiene que repetir el proceso para cada una.
+
+En primer lugar, en el Código \ref{9-train} se muestra como se cargan los modelos con los parámetros de entrenamiento guardados previamente. Esto agiliza el proceso de predicción. Una vez cargados los datos, los modelos se agrupan en listas para poder ser utilizados de forma iterativa. Estos se separan en una lista con los modelos sin regresores y otro con regresores.
+
+\lstinputlisting[caption=Carga de modelos, label={9-train}]{codigos/9-load.py}
+
+Una vez con los modelos preparados, se realizan las predicciones en el Código \ref{10-pred}. Primero se genera un \textit{dataframe} donde almacenar los datos, añadiendo los datos de test.
+
+A continuación, se realiza la predicción del modelo Prophet exclusivamente ya que su clase no cuenta con la variable \textit{model\_name} y es más sencillo ubicarlo de esta forma. Se realiza la predicción para el medio año de estudio y se guarda en la tabla de datos. Esta operación se repite de forma iterativa para el resto de modelos, añadiendo los resultados a la tabla en una columna con el nombre del modelo.
+
+Por último, los datos obtenidos se guardan en un archivo csv para su posterior estudio.
+
+\lstinputlisting[caption=Realización de predicciones, label={10-pred}]{codigos/10-pred.py}
+
+\section{Cálculo de errores}
+

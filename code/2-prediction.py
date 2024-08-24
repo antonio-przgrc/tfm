@@ -108,7 +108,6 @@ for name in names:
     mod_nhits_multi, mod_tcn_multi, mod_dlinear_multi, mod_nlinear_multi, mod_tide_multi, mod_tsmixer_multi]
 
     resultados = test[name].pd_dataframe()
-    errores = pd.DataFrame()
 
     print(name)
     print('prophet')
