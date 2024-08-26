@@ -116,8 +116,8 @@ for name in names:
 
         dfts[col+'_ts'] = 0
     
-        for i in range(1,len(df)):
-            errors = dfts[name][:i] - dfts[col][:i]
+        for i in range(0,len(df)):
+            errors = dfts[name][0:i+1] - dfts[col][0:i+1]
             bias = np.sum(errors)
             mad = np.mean(np.abs(errors))
 
@@ -126,15 +126,6 @@ for name in names:
             else:
                 ts = bias/mad
 
-            dfts[col+'_ts'][i-1] = ts
-
-            # if i==0:
-            #     dfts[col+'_mad'][i] = abs(row[name]-row[col])
-            #     dfts[col+'_bias'][i] = row[name]-row[col]
-            #     dfts[col+'_ts'][i] = dfts[col+'_bias'][i]/dfts[col+'_mad'][i]
-            # if i>0:
-            #     dfts[col+'_mad'][i] = (abs(row[name]-row[col]) + dfts[col+'_mad'][i-1]*(i)) / (i+1)
-            #     dfts[col+'_bias'][i] = row[name]-row[col] + dfts[col+'_bias'][i]
-            #     dfts[col+'_ts'][i] = dfts[col+'_bias'][i]/dfts[col+'_mad'][i]
+            dfts[col+'_ts'][i] = ts
 
     dfts.to_csv(f'results/ts_{name}.csv')
