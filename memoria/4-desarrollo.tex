@@ -1,6 +1,6 @@
 \chapter{Desarrollo}\label{cap4}
 
-El código completo se encuentra en los Anexos del trabajo, en este capítulo se trocea a conveniencia para una mejor explicación y comprensión del mismo. El proyecto se divide en cuatro grandes bloques:
+El código completo se encuentra en los Anexos del trabajo, en este capítulo se desglosa y muestra a conveniencia para una mejor explicación y comprensión del mismo. El proyecto se divide en cuatro grandes bloques:
 
 \begin{itemize}
     \item Preprocesamiento de los datos.
@@ -15,9 +15,9 @@ Un elemento común a todos los puntos es la importación de librerías. Para ell
 
 \section{Preprocesamiento}\label{cap4-preproc}
 
-La primera operación a realizar es la carga y el procesamiento de los datos para su estudio. De esta forma, el objetivo es tener los datos disponibles para los modelos en la forma correcta.
+La primera operación a realizar es la carga y el procesamiento de los datos para su estudio, el objetivo es tener los datos disponibles para los modelos en la forma correcta.
 
-En el Código \ref*{2-tratamiento}, se define la función \textit{tratamiento}, que permite cargar los datos de un archivo csv que recibe como entrada y devuelve un \textit{dataframe} o tabla de datos junto con el nombre del archivo. Se define la fecha como el índice de la tabla y se reagrupan los datos para que solo aparezcan días de lunes a viernes y, si en algún caso no exista dicho día, se cree y se le asigne un valor de 0. Si algún valor es negativo (a causa de una devolución), se ignora y se convierte a 0 también. Por último, se especifica las fechas a tratar y termina la función devolviendo los datos requeridos.
+En el Código \ref*{2-tratamiento}, se define la función \textit{tratamiento}, que permite cargar los datos de un archivo csv que recibe como entrada y devuelve un \textit{dataframe} o tabla de datos junto con el nombre del archivo. Se define la fecha como el índice de la tabla y se reagrupan los datos para que solo aparezcan días de lunes a viernes. Para evitar errores de importación, si en algún caso no existe dicho día se crea artificialmente y se asigna un valor de cero. Además, si algún valor es negativo (a causa de una devolución), se ignora y se convierte a 0 también. Por último, se especifica las fechas a tratar y termina la función devolviendo los datos requeridos.
 
 \lstinputlisting[caption=Carga de archivos .csv y tratamiento de los datos, label={2-tratamiento}]{codigos/2-tratamiento.py}
 
@@ -31,20 +31,20 @@ Por otro lado, los datos del precio del carburante son semanales, por lo que par
 
 \lstinputlisting[caption=Carga de datos meteorológicos y precios de carburantes, label={4-meteocarb}]{codigos/4-meteocarb.py}
 
-Para terminar con el procesamiento de los datos, en el Código \ref*{5-timeseries} se crea el objeto de la clase \textit{TimeSeries} de la librería \textit{Darts}. Para ello, se proveen los datos mediante las tablas de datos creadas previamente. Además, se le añaden los días festivos con un método de la propia clase.
+Para terminar con el procesamiento de los datos, en el Código \ref*{5-timeseries} se crea el objeto de la clase \textit{TimeSeries} de la librería \textit{Darts}. Para ello, se proveen los datos mediante las tablas de datos creadas previamente y se le añaden los días festivos con un método de la propia clase.
 
-Por otro lado, para mejorar la estabilidad y eficiencia de los modelos utilizando un escalador que convierte los datos entre los valores 0 y 1 según el máximo y mínimo de cada serie.
+Por otro lado, para mejorar la estabilidad y eficiencia de los modelos se ha utilizado un escalador que convierte los datos entre los valores 0 y 1 según el máximo y mínimo de cada serie.
 
-Finalmente, se divide entre serie para entrenamiento y serie de test. Los datos pertenecientes al test serán los de 2024 en adelante, mientras que los de entrenamiento serán los previos.
+Finalmente, se diferencia entre serie para entrenamiento y serie de test. Los datos pertenecientes al test serán los de 2024 en adelante, mientras que los de entrenamiento serán los previos.
 
 \lstinputlisting[caption=Creación de objeto TimeSeries, label={5-timeseries}]{codigos/5-timeseries.py}
 
 
 \section{Definición y entrenamiento de modelos}\label{cap4-entreno}
 
-En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}. En primer lugar se define las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto.
+En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}, donde en primer lugar se definen las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto.
 
-Todos los modelos se configuran con características similares para comparar sus comportamientos. Los bloques de entrada de entrenamiento es de 260 datos, un año contando que solo se cuentan los días de lunes a viernes. Por otro lado, el bloque de salida es de 130 datos para que la salida sea de medio año, tamaño de los datos de test. 
+Todos los modelos se configuran con características similares para comparar sus comportamientos. El bloque de entrada de entrenamiento es de 260 datos, un año contando que solo se cuentan los días de lunes a viernes. Por otro lado, el bloque de salida es de 130 datos para que la salida sea de seis meses, tamaño de los datos de test. 
 
 Además, se cuenta con la variable \textit{dropout} de 0.2, que es la dilución o abandono. Esta variable se utiliza para que los nodos se puedan regularizar y reducir el sobreajuste.
 
@@ -72,7 +72,7 @@ En primer lugar, en el Código \ref{9-train} se muestra como se cargan los model
 
 Una vez con los modelos preparados, se realizan las predicciones en el Código \ref{10-pred}. Primero se genera un \textit{dataframe} donde almacenar los datos, añadiendo los datos de test.
 
-A continuación, se realiza la predicción del modelo Prophet exclusivamente ya que su clase no cuenta con la variable \textit{model\_name} y es más sencillo ubicarlo de esta forma. Se realiza la predicción para el medio año de estudio y se guarda en la tabla de datos. Esta operación se repite de forma iterativa para el resto de modelos, añadiendo los resultados a la tabla en una columna con el nombre del modelo.
+A continuación, se realiza la predicción del modelo Prophet exclusivamente ya que su clase no cuenta con la variable \textit{model\_name} y requiere un tratamiento especial. Se realiza la predicción para el medio año de estudio y se guarda en la tabla de datos. Esta operación se repite de forma iterativa para el resto de modelos, añadiendo los resultados a la tabla en una columna con el nombre del modelo.
 
 Por último, los datos obtenidos se guardan en un archivo csv para su posterior estudio.
 

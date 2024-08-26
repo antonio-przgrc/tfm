@@ -1,4 +1,4 @@
-\chapter{Metodología}\label{cap3}
+\chapter{Metodología: herramientas y datos}\label{cap3}
 
 En este capítulo se detallan las distintas herramientas y elementos utilizados en el trabajo. En primer lugar, se comienza por las librerías de Python utilizadas, continuando con los datos de estudio y los de apoyo y, terminando por los modelos de predicción.
 
@@ -13,13 +13,15 @@ Python \cite{python} es un lenguaje de programación interpretado de alto nivel 
 	\item Darts.
 \end{itemize}
 
-Pandas \cite{pandas} es una libería que permite el uso de \textit{dataframes}, unas estructuras de datos tabulares basada en columnas e índices, que permiten realizar multitud de operaciones. Scikit-learn \cite{scikit-learn} es una librería de aprendizaje automático muy completa, de la cual en este trabajo se utiliza sus herramientas para el cálculo de métricas de errores y el escalador de datos \textit{MinMaxScaler}. Matplotlib \cite{matplotlib} por su parte es la libería base para la creación de gráficas en Python.
+Pandas \cite{pandas} es una libería que permite el uso de \textit{dataframes}, unas estructuras de datos tabulares basada en columnas e índices, que facilitan realizar multitud de operaciones. Scikit-learn \cite{scikit-learn} es una librería de aprendizaje automático muy completa, de la que, en este trabajo, se utilizan sus herramientas para el cálculo de métricas de errores y el escalador de datos \textit{MinMaxScaler}. Matplotlib \cite{matplotlib}, por otra parte, es la libería base para la creación de gráficas en Python.
 
-Darts \cite{darts} merece una mención especial, ya que es la base del proyecto. Se trata de una librería \textit{open-source} creada por la empresa suiza Unit8. Está especializada en la realización de predicciones en series temporales o \textit{forecasting}. Cuenta con multitud de modelos integrados, desde probabilísticos como ARIMA hasta modelos de \textit{deep learning} basados en PyTorch \cite{pytorch}. Simplifica el uso de distintos modelos utilizando un esquema común para entrenamiento y predicción, permitiendo realizar experimentos con múltiples modelos con facilidad. Cuenta además con herramientas tanto para el preprocesamiento de los datos como para el análisis posterior.
+Darts \cite{darts} merece una mención especial, ya que es la base del proyecto. Se trata de una librería \textit{open-source} creada por la empresa suiza Unit8. Está especializada en la realización de predicciones en series temporales o \textit{forecasting}. Cuenta con multitud de modelos integrados, desde probabilísticos como ARIMA hasta modelos de \textit{deep learning} basados en PyTorch \cite{pytorch}, la plataforma que da soporte para la construcción y entrenamiento de los modelos. Simplifica el uso de distintos modelos utilizando un esquema común para entrenamiento y predicción, permitiendo realizar experimentos con múltiples modelos con facilidad. Cuenta además con herramientas tanto para el preprocesamiento de los datos como para el análisis posterior.
 
 \section{Series de datos de estudio}
 
-En la empresa de recambios de automóvil de estudio, las distintas referencias se agrupan en familias de productos para recibir un tratamiento común independientemente de la marca. Por ejemplo, todas las referencias únicas referidas a baterías pertenecen a la familia de baterías. Los datos que se obtienen del ERP son el agrupado de ventas diarias de cada familia de estudio. Las familias de producto utilizadas en este estudio son las siguientes:
+En la empresa de recambios de automóvil de estudio, las distintas referencias se agrupan en familias de productos para recibir un tratamiento común independientemente de la marca. Por ejemplo, dentro de las baterías existen distintas marcas de proveedores con diferentes características, por lo que reciben una referencia única. Todas estas referencias se agrupan dentro de una familia, denominada baterías, que engloba el conjunto de referencias de productos con características generales similares pero especificaciones técnicas diferentes que satisfacen un mismo mercado y una misma demanda. 
+
+Los datos que se obtienen del ERP son el agrupado de ventas diarias de cada familia de estudio. Las familias de producto utilizadas en este estudio son las siguientes:
 
 \begin{itemize}
     \item Baterías.
@@ -28,7 +30,7 @@ En la empresa de recambios de automóvil de estudio, las distintas referencias s
     \item Limpiaparabrisas.
 \end{itemize} 
 
-En cuanto al rango de fechas de los datos se incluye desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Para evitar el efecto del comienzo de la empresa y tomar los años completos, los datos se toman desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023, dejando la primera mitad del año 2024 como test para los modelos. Además, como los días de apertura son de lunes a viernes, se excluyen los fines de semana para facilitar el trabajo a los modelos. Sin embargo, para mantener coherencia entre todos los datos, se incluyen los días festivos que sea entre semana, que tendrán 0 unidades vendidas.
+Relativo al rango de fechas de los datos extraídos se incluyen desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Con el fin de evitar desviaciones externas a las variables que se incluyen en el estudio, se escogen los datos desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023 evitando el periodo de comienzo de actividad empresarial. De la muestra se excluyen los datos del primer semestre del año 2024 como método de testeo y validación de los modelos predictivos objeto de entreno y estudio en este proyecto. Adicionalmente, la extracción de datos se ha ajustado al periodo de actividad de la tienda, que es de lunes a viernes, excluyendo los fines de semana para facilitar el trabajo de los modelos matemáticos. Sin embargo, para mantener coherencia en el conjunto de datos, se incluyen los días festivos que sea entre semana, que tendrán 0 unidades vendidas.
 
 Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref*{ej-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
 
@@ -59,7 +61,7 @@ A continuación, en la Tabla \ref*{3-cabezafiltros} se observa una muestra con l
 
 \subsection{Baterías}
 
-Las baterías forman un grupo de producto el cual resulta relevante de estudio, ya que son un elemento común a todos los vehículos que se puede considerar consumible, ya que con el tiempo se degradan y es necesaria su sustitución. Además, son un elemento perecedero y por ello es necesario que pasen en el almacén el menor tiempo posible para evitar posibles fallos y, posteriores devoluciones por garatía. También hay que tener en cuenta que las baterías son productos más voluminosos y pesados, por lo que el coste de inventario es superior a la media de los demás productos.
+Las baterías forman un grupo de producto que resulta relevante de estudio, debido a que son un elemento común a todos los vehículos que puede considerarse consumible, ya que con el tiempo se degradan y es necesaria su sustitución. Además, son un elemento perecedero y por ello es necesario que pasen en el almacén el menor tiempo posible para evitar posibles fallos y, posteriores devoluciones por garatía. También hay que tener en cuenta que las baterías son productos más voluminosos y pesados que el resto de productos, por lo que el coste de inventario es superior a la media de los demás productos.
 
 En la Figura \ref*{3-graf_baterias}, se observa una gráfica de la serie temporal, donde se muestra una clara tendencia al alza y cierta estacionalidad. Además, a destacar el bajón de ventas producidas por el confinamiento durante el COVID y el posterior incremento de las ventas al ser diferidas.
 
@@ -82,9 +84,9 @@ Utilizando la librería Prophet \cite{prophet}, se desglosa la estacionalidad de
 
 \subsection{Filtros}
 
-Los filtros son el consumible por excelencia de los vehículos con motores de combustión, ya que la sustitución periódica de filtros como el de aceite y el de combustible es esencial para alargar la vida útil del motor. Además, también hay filtros como el de aire que se encuentran también en vehículos eléctricos. Por esto, se conforma una familia de producto que tiene un alto volumen de ventas.
+Los filtros son el consumible por excelencia de los vehículos con motores de combustión, ya que la sustitución periódica de filtros como el de aceite y el de combustible es esencial para alargar la vida útil del motor. Además, ciertos filtros, como el del aire, están presentes en todo tipo de vehículos, ya sean clásicos de combustión o bien más modernos como híbridos o eléctricos, por lo que se conforma una familia de producto que tiene un alto volumen de ventas.
 
-En la Figura \ref*{3-graf_filtros} se observa el histórico de datos de la familia de producto. No se aprecia tanta estacionalidad como en el caso de las baterías, pero la tendencia al alza es bastante clara en los primeros años, con un estancamiento a partir del año 2020.
+En la Figura \ref*{3-graf_filtros} se observa el histórico de datos de la familia de filtros. No se aprecia tanta estacionalidad como en el caso de las baterías, pero la tendencia al alza es bastante clara en los primeros años, con un estancamiento a partir del año 2020.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -104,7 +106,7 @@ Desglosando los componentes estacionales, no se observa una estacionalidad muy m
 
 \subsection{Aceites}
 
-Otra familia importante es la de los aceites industriales. Se trata de productos que suelen ser voluminosos y, al igual que los filtros, su sustitución es imprescindible para un correcto mantenimiento de vehículos térmicos y alargar su vida útil. En la Figura \ref*{3-graf_aceites} se muestra la gráfica de la serie histórica.
+Otra familia importante es la de los aceites industriales. Se trata de productos que suelen ser voluminosos y, al igual que los filtros, su sustitución es imprescindible para un correcto funcionamiento de los vehículos ya que de ello depende la correcta lubricación de las partes del motor y elementos móviles y, por lo tanto, alargar su vida útil. En la Figura \ref*{3-graf_aceites} se muestra la gráfica de la serie histórica.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -113,7 +115,7 @@ Otra familia importante es la de los aceites industriales. Se trata de productos
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_aceites.pdf}}
 \end{figure}
 
-En la Figura \ref*{3-comp_aceites} se muestra el desglose de los componentes de la serie. A nivel semanal es de resaltar que los viernes hay un mayor número de ventas, mientras que a nivel anual se observa que la estacionalidad es trimestral.
+En la Figura \ref*{3-comp_aceites} se muestra el desglose de los componentes de la serie. A nivel semanal es de resaltar que los viernes hay un mayor número de ventas, mientras que a nivel anual se observa que la estacionalidad es trimestral. Se nota un incremento de la demanda desde 2012 hasta 2020, donde, aislando la repercusión del efecto COVID que desvía la tendencia, parece estancarse desde el 2020 hasta el 2024
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -124,7 +126,7 @@ En la Figura \ref*{3-comp_aceites} se muestra el desglose de los componentes de 
 
 \subsection{Limpiaparabrisas}
 
-Los limpiaparabrisas son un tipo de producto con una clara estacionalidad, ya que durante la época con mayor irradiación solar se deterioran en coches estacionados en la calle y se sustituyen cuando empieza la época de lluvias. En la Figura \ref*{3-graf_limpiaparabrisas}, se observa como hay picos intensos de demanda y valles marcados.
+Los limpiaparabrisas son un tipo de producto con una clara estacionalidad, ya que durante la época con mayor irradiación solar se deterioran en coches estacionados en la calle y se sustituyen cuando empieza la época de lluvias y es fundamental para la correcta visibilidad de los vehículos. En la Figura \ref*{3-graf_limpiaparabrisas}, se observa como hay picos intensos de demanda y valles marcados.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -133,7 +135,7 @@ Los limpiaparabrisas son un tipo de producto con una clara estacionalidad, ya qu
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_limpiaparabrisas.pdf}}
 \end{figure}
 
-En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ventas a lo largo de la serie histórica y la estacionalidad que concenctra las ventas después de la época de verano.
+En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ventas a lo largo de la serie histórica y la estacionalidad que concentra las ventas después de la época de verano.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -145,11 +147,11 @@ En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ven
 
 \section{Regresores externos}
 
-A pesar de que el enfoque de las predicciones es univariable, ya que solo se busca predecir el valor de las ventas, es posible añadir regresores externos o \textit{covariates} para mejorar los resultados. Estos regresores pueden ser pasados, futuros o estáticos. En el caso de estudio presente, se utilizan regresores pasados.
+A pesar de que el enfoque de las predicciones es univariable, ya que solo se busca predecir el valor de las ventas, es posible añadir regresores externos o \textit{covariates} para mejorar la calidad de los resultados. Estos regresores pueden ser pasados, futuros o estáticos. En el caso de estudio presente, se utilizan regresores pasados.
 
 \subsection{Días festivos}
 
-Los días festivos las tiendas permanecen cerradas, por lo que las ventas son cero. Como las series de datos de estudio incluyen todos los días de lunes a viernes incluyendo los festivos, es buena idea añadir como regresor una serie donde se indique los días que son festivos. En este sentido, la librería Darts añade la funcionalidad de añadir una una serie extra con los días laborables de España y, además, de Andalucía. Se trata de una serie con una variable binaria donde 1 indica que es día festivo y 0 indica que no lo es. Se puede observar en la Figura \ref*{3-dias_festivos} los días festivos durante el rango de fechas del caso de estudio.
+Los días festivos las tiendas permanecen cerradas, por lo que las ventas son cero. Como las series de datos de estudio recogen todos los días de lunes a viernes incluyendo los festivos, es buena idea añadir como regresor una serie donde se indique los días que son festivos. En este sentido, la librería Darts añade la funcionalidad de añadir una serie extra con los días laborables de España y, además, de Andalucía. Se trata de una serie con una variable binaria donde 1 indica que es día festivo y 0 indica que no lo es. Se puede observar en la Figura \ref*{3-dias_festivos} los días festivos durante el rango de fechas del caso de estudio.
 
 Además, algunos modelos utilizados cuentan con la posiblidad de utilizar \textit{covariates} futuras. Por ello, los que lo permitan, utilizarán los datos de los días festivos para realizar las predicciones en el periodo de predicción.
 
@@ -164,9 +166,9 @@ Además, algunos modelos utilizados cuentan con la posiblidad de utilizar \texti
 
 Las precipitaciones y la temperatura son elementos que causan desgaste en los vehículos. Además, estas variables son estacionales, por lo que puede favorecer la comprensión de comportamientos de las series de datos por parte de los modelos.
 
-Para ello, se toman datos proveídos por Agencia Estatal de Meteorología en la plataforma AEMET OpenData \cite{aemet}. Los datos obtenidos pertenecen a las climatologías diarias recogidas en la estación meteorológica de Olvera, en la provincia de Cádiz. Esta localidad se encuentra localizada aproximadamente en el centro geográfico de todas las tiendas de la empresa y su climatología es extrapolable al resto.
+Para ello, se toman datos provistos por Agencia Estatal de Meteorología en la plataforma AEMET OpenData \cite{aemet}. Los datos obtenidos pertenecen a las climatologías diarias recogidas en la estación meteorológica de Olvera, en la provincia de Cádiz. Esta localidad se encuentra localizada aproximadamente en el centro geográfico de todas las tiendas de la empresa y tras realizar un muestreo aleatorio se puede concluir que su climatología es extrapolable al resto.
 
-De todos los datos que ofrece la plataforma, se toman el de temperatura media diaria, precipitaciones y humedad media diaria. En la Figura \ref*{3-meteo} se muestra una gráfica de los datos en el rango temporal del estudio. Se observa la estacionalidad de los datos de temperatura y humedad, ya que son variables con poca variación diaria. Por otro lado, las precipitaciones son datos puntuales, aunque suelen aparecer en las mismas fechas de cada año.
+De todos los datos que ofrece la plataforma, se toman la temperatura media diaria, las precipitaciones y la humedad media diaria. En la Figura \ref*{3-meteo} se muestra una gráfica de los datos en el rango temporal del estudio. Se observa la estacionalidad de los datos de temperatura y humedad, ya que son variables con poca dispersión diaria. Por otro lado, las precipitaciones son datos puntuales, aunque suelen aparecer en las mismas fechas de cada año.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -178,9 +180,11 @@ De todos los datos que ofrece la plataforma, se toman el de temperatura media di
 
 \subsection{Precio del carburante}
 
-El precio de la gasolina y del diésel influye en la industria de la automoción en gran medida, ya que su valor incrementa el coste de la movilidad en vehículos térmicos. Por ello, su precio puede influir en la industria del \textit{aftermarket} del automóvil al verse reducido el uso de los vehículos. Por ello, es interesante utilizarlo como regresor durante el entrenamiento de los modelos.
+El precio de los combustibles fósiles influye en la industria de la automoción en gran medidsa, ya que su valor incrementa el coste de la movilidad en vehículos térmicos. Por ello, su precio puede influir en la industria del \textit{aftermarket} del automóvil al verse reducido el uso de los vehículos. Por ello, al verse reducido el uso de los vehículos, así que es interesante utilizar esta variable como regresor.
 
-Para ello, se utilizan datos obtenidos del Boletín del Petróleo de la Comisión Europea \cite{petrol} que provee datos semanales del precio de diversos combustibles en todos los países de la Unión Europea. Como el diésel y la gasolina son los carburantes más empleados en la mayoría de vehículos serán los empleados en el estudio. Los datos obtenidos son semanales mientras que nuestros datos son diarios, por lo que el valor de cada semana se extenderá a todos los días de esa semana. La Figura \ref*{3-precio_combustible} muestra la evolución del precio de ambos combustibles a lo largo del período del estudio.
+Se utilizan datos obtenidos del Boletín del Petróleo de la Comisión Europea \cite{petrol} que provee datos semanales del precio de diversos combustibles en todos los países de la Unión Europea. Como el diésel y la gasolina son los carburantes más empleados en la mayoría de vehículos serán los empleados en el estudio. Los datos obtenidos son semanales mientras que nuestros datos son diarios, por lo que el valor de cada semana se extenderá a todos los días de esa semana. 
+
+La Figura \ref*{3-precio_combustible} muestra la evolución del precio de ambos combustibles a lo largo del período del estudio.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth] {
@@ -191,9 +195,11 @@ Para ello, se utilizan datos obtenidos del Boletín del Petróleo de la Comisió
 
 \section{Modelos}
 
+Los modelos matemáticos son herramientas matemáticas o estadísticas diseñadas para identificar patrones en las series de datos con el fin de predecir valores futuros. Cada modelo tiene una arquitectura que captura diferentes características y distintos tipos de patrones de los datos, como la tendencia, la estacionalidad y las autocorrelaciones, utilizando dicha información para generar predicciones basadas en el comportamiento pasado de la serie temporal.
+
 \subsection{Prophet}
 
-Prophet \cite{prophet} es una herramienta desarrollada por Facebook (ahora conocida como Meta) para el análisis de series temporales. Está especializada en datos que presentan patrones estacionales y tendencia. Está enfocada a ser fácil de usar y no requerir mucha configuración y se utiliza como librería en Python o R \cite{R}. El modelo incluido descompone la serie temporal en tendencia y estacionalidad. Además, permite añadir los festivos locales para mejorar las predicciones.
+Prophet \cite{prophet} es una herramienta desarrollada por Facebook (ahora conocida como Meta) para el análisis de series temporales. Está especializada en datos que presentan patrones estacionales y tendencia. Está orientado al usuario final sin requerir configuración compleja específica para su aplicación. Se utiliza como librería en Python o R \cite{R}. El modelo incluido descompone la serie temporal en tendencia y estacionalidad. Además, permite añadir los festivos locales para mejorar las predicciones.
 
 Se utiliza un modelo en el que la tendencia se modela de forma flexible, permitiendo cambios no lineales mediante \textit{changepoints}. Evita los valores atípicos y los datos faltantes, dando robustez al modelo frente a series temporales ruidosas o incompletas.
 
