@@ -80,3 +80,10 @@ Por último, los datos obtenidos se guardan en un archivo csv para su posterior 
 
 \section{Cálculo de errores}
 
+Para el cálculo de los errores se toman los datos obtenidos en el apartado anterior. Para ello, se cargan en el Código \ref*{11-cargayagru}. Además, se agrupan los datos por mes, por cuatrimestre y por año, ya que las predicciones son más útiles en estos periodos que diariamente. 
+
+\lstinputlisting[caption=Carga y agrupación de resultados, label={11-cargayagru}]{codigos/11-cargayagru.py}
+
+
+
+\lstinputlisting[caption=Realización de predicciones, label={12-errores}]{codigos/12-errores.py}

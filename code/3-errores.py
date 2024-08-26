@@ -1,6 +1,7 @@
 import warnings
 from datetime import datetime
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import root_mean_squared_error as rmse
 import matplotlib.pyplot as plt
@@ -50,7 +51,7 @@ df2.set_index('fecha', inplace=True)
 df2 = df2[['tmed', 'prec', 'hrMedia']]
 df2 = df2.resample('B').first()
 df2 = df2.fillna(method='backfill')
-df2 = df2['2012':]
+df2 = df2["2012-01-01":"2023-12-31"]
 df = pd.concat([df, df2], axis=1)
 
 # Precio combustible
@@ -58,7 +59,7 @@ df2 = pd.read_csv('data/carburante.csv', decimal=',')
 df2['fecha'] = pd.to_datetime(df2['fecha']+'0', format="%Y-%W%w")
 df2 = df2.set_index('fecha').sort_index()
 df2 = df2.resample('B').first().ffill()
-df2 = df2['2012':]
+df2 = df2["2012-01-01":"2023-12-31"]
 
 df = pd.concat([df, df2], axis=1)
 
@@ -90,23 +91,50 @@ for name in names:
     df_res = df_res.set_index('fecha')
     df_res = df_res[:130]
 
-    df_res_m = df_res.groupby(pd.Grouper(freq='MS')).sum()[:datetime(2024,1,31)]
-    df_res_q = df_res.groupby(pd.Grouper(freq='QS')).sum()[:datetime(2024,3,31)]
-    df_res_y = df_res.groupby(pd.Grouper(freq='YS')).sum()[:datetime(2024,6,30)]
+    df_res_m = df_res.groupby(pd.Grouper(freq='MS')).sum()
 
-    idx_names = ['Error diario', 'Error mensual', 'Error cuatrimestre','Error semestre']
+    idx_names = ['Error diario', 'Error mensual']
     for model in df_res.columns:
         if model == name:
             continue
         error_d = rmse(df_res[name], df_res[model])
         error_m = rmse(df_res_m[name], df_res_m[model])
-        error_q = rmse(df_res_q[name], df_res_q[model])
-        error_y = rmse(df_res_y[name], df_res_y[model])
-        errores = pd.concat([errores, pd.DataFrame({model:[error_d, error_m, error_q, error_y]}, index=idx_names)],axis=1)
+        errores = pd.concat([errores, pd.DataFrame({model:[error_d, error_m]}, index=idx_names)],axis=1)
     errores2 = pd.DataFrame()
     errores2[errores.columns] = scaler.inverse_transform(errores)
-    errores2.index = ['Error diario (abs)', 'Error mensual (abs)', 'Error cuatrimestre (abs)','Error semestre (abs)']
+    errores2.index = ['Error diario (abs)', 'Error mensual (abs)']
 
     errores = pd.concat([errores, errores2])
 
     errores.to_csv(f'results/errores_{name}.csv')
+
+    # Tracking signal
+    dfts = df_res_m.reset_index()
+    for col in dfts.columns:
+        if (col == name) or (col == 'fecha'):
+            continue
+
+        dfts[col+'_ts'] = 0
+    
+        for i in range(1,len(df)):
+            errors = dfts[name][:i] - dfts[col][:i]
+            bias = np.sum(errors)
+            mad = np.mean(np.abs(errors))
+
+            if mad == 0:
+                ts = float('inf')
+            else:
+                ts = bias/mad
+
+            dfts[col+'_ts'][i-1] = ts
+
+            # if i==0:
+            #     dfts[col+'_mad'][i] = abs(row[name]-row[col])
+            #     dfts[col+'_bias'][i] = row[name]-row[col]
+            #     dfts[col+'_ts'][i] = dfts[col+'_bias'][i]/dfts[col+'_mad'][i]
+            # if i>0:
+            #     dfts[col+'_mad'][i] = (abs(row[name]-row[col]) + dfts[col+'_mad'][i-1]*(i)) / (i+1)
+            #     dfts[col+'_bias'][i] = row[name]-row[col] + dfts[col+'_bias'][i]
+            #     dfts[col+'_ts'][i] = dfts[col+'_bias'][i]/dfts[col+'_mad'][i]
+
+    dfts.to_csv(f'results/ts_{name}.csv')
