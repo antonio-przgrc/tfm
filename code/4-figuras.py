@@ -89,8 +89,7 @@ for name in names:
         # offset = width * multiplier + width * 1.5# para cuatro barras
         offset = width
         rects = ax.bar(x= x + offset, height=medida, width=width, label=tipo)
-        #ax.bar_label(rects, padding=len(dfe))
-        multiplier += 1
+        ax.bar_label(rects, padding=len(dfe))
 
     ax.set_ylabel('Error (unidades)')
     # ax.set_xlabel('Modelo')
@@ -113,6 +112,7 @@ for name in names:
     dfp['fecha'] = pd.to_datetime(dfp['fecha'], format="%Y-%m-%d")
     dfp = dfp.set_index(['fecha'])
     dfp[dfp.columns] = scaler.inverse_transform(dfp)
+    dfp = dfp.drop(['rnn','lstm','gru','nbeats','nhits','tcn','dlinear','nlinear','prophet','tide','tsmixer'],axis=1)
     dfp_mes = dfp.groupby(pd.Grouper(freq='MS')).sum()
     
     fig, ax = plt.subplots()
