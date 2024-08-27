@@ -42,13 +42,13 @@ Finalmente, se diferencia entre serie para entrenamiento y serie de test. Los da
 
 \section{Definición y entrenamiento de modelos}\label{cap4-entreno}
 
-En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}, donde en primer lugar se definen las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto.
+En primer lugar, es necesario definir los modelos de aprendizaje automático. Esto se muestra en el Código \ref*{6-definicion}, donde en primer lugar se definen las constantes EPOCHS y BATCH, que son el número de ciclos de entrenamiento y el tamaño del conjunto de datos de cada ciclo respectivamente. Cada modelo se entrenará para cada familia de producto. Como la mayoría de modelos tienen una definición similar, se muestra un ejemplo de cada tipo en el código mostrado para facilitar su visualización.
 
-Todos los modelos se configuran con características similares para comparar sus comportamientos. El bloque de entrada de entrenamiento es de 260 datos, un año contando que solo se cuentan los días de lunes a viernes. Por otro lado, el bloque de salida es de 130 datos para que la salida sea de seis meses, tamaño de los datos de test. 
+Todos los modelos se configuran con características similares para comparar sus comportamientos. El bloque de entrada de entrenamiento es de 260 datos, un año contando que solo se cuentan los días de lunes a viernes. Por otro lado, el bloque de salida es de 130 datos para que la salida sea de seis meses, tamaño de los datos de test.
 
 Además, se cuenta con la variable \textit{dropout} de 0.2, que es la dilución o abandono. Esta variable se utiliza para que los nodos se puedan regularizar y reducir el sobreajuste.
 
-Al definir los modelos se permite añadir otros regresores externos temporales. En este caso, se añaden los regresores cíclicos que representan cada cuatrimestre y el día del año en cuestión. Cada regresor se divide en dos columnas extras, siendo una el seno y otra el coseno de la variable. 
+Al definir los modelos se permite añadir otros regresores externos temporales. En este caso, se añaden los regresores cíclicos que representan cada cuatrimestre y el día del año en cuestión. Cada regresor se divide en dos columnas extras, siendo una el seno y otra el coseno de la variable.
 
 Los modelos se definen una vez y se realiza una copia de los mismos. El modelo original será entrenado solo con la serie de datos de estudio, mientras que la copia, renombrada con el sufijo "\_multi", se entrena utilizando los regresores externos existentes.
 
@@ -58,7 +58,7 @@ Como se necesita entrenar los mismos modelos en varias ocasiones para las distin
 
 \lstinputlisting[caption=Definición de función de reinicio de modelos, label={7-reset}]{codigos/7-reset.py}
 
-Por último, se realiza el entrenamiento propiamente dicho utilizando el método \textit{fit()} de la clase \textit{TimeSeries} especificando la serie de datos de entrenamiento. Para los modelos con regresores externos además, se les añaden las \textit{covariates} definidas previamente. Después de entrenar cada modelo, los parámetros del mismo se guardan para poder ser utilizados en otras sesiones sin tener que volver a entrenarlo. El Código \ref{8-train} muestra el proceso de entrenamiento. 
+Por último, se realiza el entrenamiento propiamente dicho utilizando el método \textit{fit()} de la clase \textit{TimeSeries} especificando la serie de datos de entrenamiento. Para los modelos con regresores externos además, se les añaden las \textit{covariates} definidas previamente. Después de entrenar cada modelo, los parámetros del mismo se guardan para poder ser utilizados en otras sesiones sin tener que volver a entrenarlo. El Código \ref{8-train} muestra el proceso de entrenamiento de forma simplificada sin repetir líneas de código, la muestra completa se encuentra en el Anexo I.
 
 \lstinputlisting[caption=Entrenamiento de modelos, label={8-train}]{codigos/8-train.py}
 
@@ -66,7 +66,7 @@ Por último, se realiza el entrenamiento propiamente dicho utilizando el método
 
 Para realizar las predicciones, los datos de test ya han sido cargados en la sección \ref{cap4-preproc} y los modelos han sido ya entrenados en la sección \ref{cap4-entreno}. Las predicciones se realizan para cada familia en particular, por lo que se tiene que repetir el proceso para cada una.
 
-En primer lugar, en el Código \ref{9-train} se muestra como se cargan los modelos con los parámetros de entrenamiento guardados previamente. Esto agiliza el proceso de predicción. Una vez cargados los datos, los modelos se agrupan en listas para poder ser utilizados de forma iterativa. Estos se separan en una lista con los modelos sin regresores y otro con regresores.
+En primer lugar, en el Código \ref{9-train} se muestra como se cargan los modelos con los parámetros de entrenamiento guardados previamente. Esto agiliza el proceso de predicción. En el código se muestra un modelo de ejemplo, pero todos se cargan de la misma forma. Una vez cargados los datos, los modelos se agrupan en listas para poder ser utilizados de forma iterativa. Estos se separan en una lista con los modelos sin regresores y otro con regresores.
 
 \lstinputlisting[caption=Carga de modelos, label={9-train}]{codigos/9-load.py}
 
@@ -80,10 +80,14 @@ Por último, los datos obtenidos se guardan en un archivo csv para su posterior 
 
 \section{Cálculo de errores}
 
-Para el cálculo de los errores se toman los datos obtenidos en el apartado anterior. Para ello, se cargan en el Código \ref*{11-cargayagru}. Además, se agrupan los datos por mes, por cuatrimestre y por año, ya que las predicciones son más útiles en estos periodos que diariamente. 
+Para el cálculo de los errores se toman los datos obtenidos en el apartado anterior. Para ello, se cargan en el Código \ref*{11-cargayagru}. Además, se agrupan los datos por mes ya que es el período de estudio.
 
 \lstinputlisting[caption=Carga y agrupación de resultados, label={11-cargayagru}]{codigos/11-cargayagru.py}
 
+Para el cálculo del error cuadrático medio se utiliza el Código \ref*{12-errores}. Este código recorre todos los modelos presentes en la tabla de datos y calcula el error cuadrático medio diario y mensual. Estos datos son desescalados, por lo que el error obtenido será en unidades vendidas.
 
+\lstinputlisting[caption=Cálculo de error cuadrático medio, label={12-errores}]{codigos/12-errores.py}
 
-\lstinputlisting[caption=Realización de predicciones, label={12-errores}]{codigos/12-errores.py}
+También se calcula las \textit{tracking signals} de cada modelo, que permite comprobar si la predicción es capaz de seguir a la demanda según su sesgo. Este cálculo se realiza en el Código \ref*{13-ts}.
+
+\lstinputlisting[caption=Cálculo de las \textit{tracking signals} de cada modelo, label={13-ts}]{codigos/13-ts.py}
