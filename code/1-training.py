@@ -92,8 +92,8 @@ DROPOUT = 0.2
 
 my_stopper = EarlyStopping(
     monitor="val_loss",  
-    patience=10,
-    min_delta=0.00001,
+    patience=20,
+    min_delta=0.0001,
     mode='min',
 )
 
