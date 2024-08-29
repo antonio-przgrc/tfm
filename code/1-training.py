@@ -307,12 +307,7 @@ models = [
 ]
 
 
-def reset_models():
-    for model in models:
-        model.reset_model()
-
-tiempo_ejecucion = pd.DataFrame()
-
+train_log = pd.DataFrame()
 
 for model in models:
     print(model.model_name)
@@ -328,7 +323,7 @@ for model in models:
     else:
         model.fit(series=train[names], past_covariates=train.drop_columns(names), dataloader_kwargs={"num_workers": 12}, val_series=val[names], val_past_covariates=val.drop_columns(names))
     
-    tiempo_ejecucion = pd.concat([tiempo_ejecucion, pd.DataFrame({"tiempo":(time.time() - tiempo1)},index=[model.model_name])])
+    train_log = pd.concat([train_log, pd.DataFrame({"tiempo":(time.time() - tiempo1), "epochs": model.epochs_trained},index=[model.model_name])])
 
 
 tiempo_ejecucion.to_csv('results/tiempos.csv')
