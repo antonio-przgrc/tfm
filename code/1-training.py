@@ -296,10 +296,6 @@ def reset_models():
 
 tiempo_ejecucion = pd.DataFrame()
 
-# Entrenamiento
-# for name in names:
-#     reset_models()
-#     print(name)
 
 for model in models:
     print(model.model_name)
