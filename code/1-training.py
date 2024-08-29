@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from darts import TimeSeries
 from darts.dataprocessing.transformers import Scaler
-from darts.models import Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TransformerModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel 
+from darts.models import BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TransformerModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel 
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 warnings.filterwarnings('ignore')
@@ -114,12 +114,10 @@ mod_blockrnn = BlockRNNModel(
     model='RNN',
     input_chunk_length=260,
     output_chunk_length=130,
-    hidden_dim=25,
-    n_rnn_layers=2,
     dropout=0.2,
     n_epochs=EPOCHS,
-    batch_size=BATCH,
     show_warnings=True,
+    batch_size=BATCH,
     model_name='RNN',
     save_checkpoints=True,
     log_tensorboard=True,
@@ -132,12 +130,10 @@ mod_blocklstm = BlockRNNModel(
     model='LSTM',
     input_chunk_length=260,
     output_chunk_length=130,
-    hidden_dim=25,
-    n_rnn_layers=2,
     dropout=0.2,
     n_epochs=EPOCHS,
-    batch_size=BATCH,
     show_warnings=True,
+    batch_size=BATCH,
     model_name='LSTM',
     save_checkpoints=True,
     log_tensorboard=True,
@@ -150,8 +146,6 @@ mod_blockgru = BlockRNNModel(
     model='GRU',
     input_chunk_length=260,
     output_chunk_length=130,
-    hidden_dim=25,
-    n_rnn_layers=2,
     dropout=0.2,
     n_epochs=EPOCHS,
     batch_size=BATCH,
