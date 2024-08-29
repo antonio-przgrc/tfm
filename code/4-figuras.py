@@ -71,11 +71,6 @@ for name in names:
     dfe = pd.read_csv(f'results/errores_{name}.csv',index_col=0)
     dfe = dfe.round(2)
 
-    # # Modelos univariable
-    # dfe = dfe.drop(labels=dfe.columns[11:].values, axis=1)
-    # # Modelos con covariates
-    # dfe = dfe.drop(labels=dfe.columns[:11].values, axis=1)
-
     # Valores escalados
     dfe = dfe[1:2]
     # # Valores absolutos
@@ -86,7 +81,6 @@ for name in names:
     width = 0.4
 
     for tipo, medida in dfe.iterrows():          
-        # offset = width * multiplier + width * 1.5# para cuatro barras
         offset = width
         rects = ax.bar(x= x + offset, height=medida, width=width, label=tipo)
         ax.bar_label(rects, padding=len(dfe))
@@ -112,7 +106,6 @@ for name in names:
     dfp['fecha'] = pd.to_datetime(dfp['fecha'], format="%Y-%m-%d")
     dfp = dfp.set_index(['fecha'])
     dfp[dfp.columns] = scaler.inverse_transform(dfp)
-    dfp = dfp.drop(['rnn','lstm','gru','nbeats','nhits','tcn','dlinear','nlinear','prophet','tide','tsmixer'],axis=1)
     dfp_mes = dfp.groupby(pd.Grouper(freq='MS')).sum()
     
     fig, ax = plt.subplots()

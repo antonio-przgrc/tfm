@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from darts import TimeSeries
 from darts.dataprocessing.transformers import Scaler
-from darts.models import Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel
+from darts.models import Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TransformerModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel 
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 warnings.filterwarnings('ignore')
@@ -164,15 +164,6 @@ mod_blockgru = BlockRNNModel(
     add_encoders=encoders
 )
 
-mod_prophet = Prophet(
-    add_seasonalities=None, 
-    country_holidays='ES', 
-    suppress_stdout_stderror=True, 
-    force_reset=True,
-    pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
-)
-
 mod_nbeats = NBEATSModel(
     input_chunk_length=260,
     output_chunk_length=130,
@@ -211,6 +202,36 @@ mod_tcn = TCNModel(
     show_warnings=True,
     batch_size=BATCH,
     model_name='TCN',
+    save_checkpoints=True,
+    log_tensorboard=True,
+    force_reset=True,
+    pl_trainer_kwargs=pl_trainer_kwargs,
+    add_encoders=encoders
+)
+
+mod_transformer = TransformerModel(
+    input_chunk_length=260,
+    output_chunk_length=130,
+    dropout=0.2,
+    n_epochs=EPOCHS,
+    show_warnings=True,
+    batch_size=BATCH,
+    model_name='Transformer',
+    save_checkpoints=True,
+    log_tensorboard=True,
+    force_reset=True,
+    pl_trainer_kwargs=pl_trainer_kwargs,
+    add_encoders=encoders
+)
+
+mod_tft = TFTModel(
+    input_chunk_length=260,
+    output_chunk_length=130,
+    dropout=0.2,
+    n_epochs=EPOCHS,
+    show_warnings=True,
+    batch_size=BATCH,
+    model_name='TFT',
     save_checkpoints=True,
     log_tensorboard=True,
     force_reset=True,
@@ -283,6 +304,8 @@ models = [
     mod_nbeats,
     mod_nhits,
     mod_tcn,
+    mod_transformer,
+    mod_tft,
     mod_dlinear,
     mod_nlinear,
     mod_tide,
@@ -299,8 +322,11 @@ tiempo_ejecucion = pd.DataFrame()
 
 for model in models:
     print(model.model_name)
-    my_stopper.best_score = torch.tensor(np.Inf) # Reinicio de stopper
+    
+    #Reinicio de EarlyStopper
+    my_stopper.best_score = torch.tensor(np.Inf)
     my_stopper.wait_count = 0
+
     tiempo1 = time.time()
 
     if model.supports_future_covariates:
