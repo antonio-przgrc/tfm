@@ -78,6 +78,8 @@ series = transformer.fit_transform(series)
 train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
 
 
+BlockRNNModel.load_from_checkpoint(model_name="RNN", best=True)
+
 for name in names:
     mod_blockrnn = BlockRNNModel.load(f'models/{name}/blockrnn')
     mod_blockrnn_multi = BlockRNNModel.load(f'models/{name}/blockrnn_multi')

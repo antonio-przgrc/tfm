@@ -192,24 +192,3 @@ La Figura \ref*{3-precio_combustible} muestra la evolución del precio de ambos 
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_carburantes.pdf}}
 \end{figure}
-
-\section{Modelos}
-
-Los modelos matemáticos son herramientas matemáticas o estadísticas diseñadas para identificar patrones en las series de datos con el fin de predecir valores futuros. Cada modelo tiene una arquitectura que captura diferentes características y distintos tipos de patrones de los datos, como la tendencia, la estacionalidad y las autocorrelaciones, utilizando dicha información para generar predicciones basadas en el comportamiento pasado de la serie temporal.
-
-\subsection{Prophet}
-
-Prophet \cite{prophet} es una herramienta desarrollada por Facebook (ahora conocida como Meta) para el análisis de series temporales. Está especializada en datos que presentan patrones estacionales y tendencia. Está orientado al usuario final sin requerir configuración compleja específica para su aplicación. Se utiliza como librería en Python o R \cite{R}. El modelo incluido descompone la serie temporal en tendencia y estacionalidad. Además, permite añadir los festivos locales para mejorar las predicciones.
-
-Se utiliza un modelo en el que la tendencia se modela de forma flexible, permitiendo cambios no lineales mediante \textit{changepoints}. Evita los valores atípicos y los datos faltantes, dando robustez al modelo frente a series temporales ruidosas o incompletas.
-
-Su uso en este trabajo es de \textit{plug and play}, ya que se instancia la librería por defecto, a excepción de la especificación de los festivos de España (la librería no incluye la posiblidad de añadir los festivos de Andalucía).
-
-Es necesario destacar que es el único modelo de los implementados que no depende de PyTorch \cite{pytorch}.
-
-\subsection{RNN}
-\subsection{N-BEATS y N-HiTS}
-\subsection{TCN}
-\subsection{DLinear y NLinear}
-\subsection{TiDE}
-\subsection{TSMixer}

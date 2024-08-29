@@ -2,13 +2,14 @@ import warnings
 import time
 import numpy as np
 import pandas as pd
+import torch
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from darts import TimeSeries
 from darts.dataprocessing.transformers import Scaler
 from darts.models import Prophet, BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel
 from pytorch_lightning.callbacks import EarlyStopping
-
+from pytorch_lightning.callbacks import ModelCheckpoint
 warnings.filterwarnings('ignore')
 
 def tratamiento(fichero):
@@ -80,7 +81,7 @@ series = transformer.fit_transform(series)
 series = series.astype(np.float32)
 
 train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
-_, val = train.split_after(pd.Timestamp(year=2022, month=12, day=31))
+_, val = train.split_after(pd.Timestamp(year=2022, month=6, day=30))
 
 # Definicion de modelos
 EPOCHS = 200
@@ -90,9 +91,9 @@ OUTPUT = 130
 DROPOUT = 0.2
 
 my_stopper = EarlyStopping(
-    monitor="train_loss",  
+    monitor="val_loss",  
     patience=10,
-    min_delta=0.0001,
+    min_delta=0.00001,
     mode='min',
 )
 
@@ -302,15 +303,16 @@ tiempo_ejecucion = pd.DataFrame()
 
 for model in models:
     print(model.model_name)
-    my_stopper.wait_count = 0 # Reinicio de patience
-
+    my_stopper.best_score = torch.tensor(np.Inf) # Reinicio de stopper
+    my_stopper.wait_count = 0
     tiempo1 = time.time()
-    if model.supports_future_covariates:
-        model.fit(series=train[names], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'], dataloader_kwargs={"num_workers": 12}, val_past_covariates=val)
-    else:
-        model.fit(series=train[names], past_covariates=train.drop_columns(names), dataloader_kwargs={"num_workers": 12}, val_past_covariates=val)
-    tiempo_ejecucion["tiempo"] = {model.model_name: (time.time() - tiempo1)}
 
-    # model.save(f'models/{name}/{model.model_name}')
+    if model.supports_future_covariates:
+        model.fit(series=train[names], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'], dataloader_kwargs={"num_workers": 12}, val_series=val[names], val_past_covariates=val[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], val_future_covariates=val['holidays'])
+    else:
+        model.fit(series=train[names], past_covariates=train.drop_columns(names), dataloader_kwargs={"num_workers": 12}, val_series=val[names], val_past_covariates=val.drop_columns(names))
+    
+    tiempo_ejecucion = pd.concat([tiempo_ejecucion, pd.DataFrame({"tiempo":(time.time() - tiempo1)},index=[model.model_name])])
+
 
 tiempo_ejecucion.to_csv('results/tiempos.csv')
