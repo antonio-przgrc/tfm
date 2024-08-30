@@ -319,11 +319,25 @@ for model in models:
     tiempo1 = time.time()
 
     if model.supports_future_covariates:
-        model.fit(series=train[names], past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], future_covariates=series['holidays'], dataloader_kwargs={"num_workers": 12}, val_series=val[names], val_past_covariates=val[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']], val_future_covariates=val['holidays'])
+        model.fit(
+            series=train[names],
+            past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
+            future_covariates=series['holidays'],
+            val_series=val[names],
+            val_past_covariates=val[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
+            val_future_covariates=val['holidays'],
+            dataloader_kwargs={"num_workers": 12}
+            )
     else:
-        model.fit(series=train[names], past_covariates=train.drop_columns(names), dataloader_kwargs={"num_workers": 12}, val_series=val[names], val_past_covariates=val.drop_columns(names))
+        model.fit(
+            series=train[names],
+            past_covariates=train.drop_columns(names),
+            val_series=val[names],
+            val_past_covariates=val.drop_columns(names),
+            dataloader_kwargs={"num_workers": 12},
+            )
     
     train_log = pd.concat([train_log, pd.DataFrame({"tiempo":(time.time() - tiempo1), "epochs": model.epochs_trained},index=[model.model_name])])
 
 
-tiempo_ejecucion.to_csv('results/tiempos.csv')
+train_log.to_csv('results/tiempos.csv')
