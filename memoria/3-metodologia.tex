@@ -32,11 +32,7 @@ Los datos que se obtienen del ERP son el agrupado de ventas diarias de cada fami
 
 Relativo al rango de fechas de los datos extraídos se incluyen desde el inicio de la empresa a mediados de 2008 hasta la mitad del año 2024. Con el fin de evitar desviaciones externas a las variables que se incluyen en el estudio, se escogen los datos desde el 1 de enero de 2012 hasta el 31 de diciembre de 2023 evitando el periodo de comienzo de actividad empresarial. De la muestra se excluyen los datos del primer semestre del año 2024 como método de testeo y validación de los modelos predictivos objeto de entreno y estudio en este proyecto. Adicionalmente, la extracción de datos se ha ajustado al periodo de actividad de la tienda, que es de lunes a viernes, excluyendo los fines de semana para facilitar el trabajo de los modelos matemáticos. Sin embargo, para mantener coherencia en el conjunto de datos, se incluyen los días festivos que sea entre semana, que tendrán 0 unidades vendidas.
 
-Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. En el Código \ref*{ej-codcarga} se muestra un ejemplo de la carga de los datos de la familia de filtros. 
-
-\lstinputlisting[caption=Carga de datos, label={ej-codcarga}]{codigos/carga_datos.py}
-
-A continuación, en la Tabla \ref*{3-cabezafiltros} se observa una muestra con los cinco primeros datos como referencia de la estructura de los datos de las series.
+Los datos se encuentran en un archivo .csv y se cargan en Python en un \textit{DataFrame} de la librería Pandas \cite{pandas}. A continuación, en la Tabla \ref*{3-cabezafiltros} se observa una muestra con los cinco primeros datos como referencia de la estructura de los datos de las series.
 
 \begin{table}[H]
 	\ttabbox[\FBwidth]
@@ -147,7 +143,7 @@ En la Figura \ref*{3-comp_limpiaparabrisas} se observan el incremento de las ven
 
 \section{Regresores externos}
 
-A pesar de que el enfoque de las predicciones es univariable, ya que solo se busca predecir el valor de las ventas, es posible añadir regresores externos o \textit{covariates} para mejorar la calidad de los resultados. Estos regresores pueden ser pasados, futuros o estáticos. En el caso de estudio presente, se utilizan regresores pasados.
+A pesar de que el enfoque de las predicciones es univariable, ya que solo se busca predecir el valor de las ventas, es posible añadir regresores externos o \textit{covariates} para mejorar la calidad de los resultados. Estos regresores pueden ser pasados, futuros o estáticos. En función del modelo, admiten de un tipo u otro.
 
 \subsection{Días festivos}
 
@@ -192,3 +188,21 @@ La Figura \ref*{3-precio_combustible} muestra la evolución del precio de ambos 
 	}
 	{\includegraphics[width=0.75\textwidth]{imagenes/grafica_carburantes.pdf}}
 \end{figure}
+
+\subsection{Regresores cíclicos temporales}
+
+Los datos de estudio del proyecto cuentan con cierta estacionalidad, por ello, los datos de ventas se ven influenciados por el momento en el que se produce. Por lo tanto, es útil añadir series temporales que indiquen el momento de los distintos períodos del año.
+
+Darts integra la posibilidad de generar ciertos patrones que se repiten de forma cíclica durante el tiempo y añadir más factores tanto para el entrenamiento como para las previsiones. Estos patrones temporales y añaden variables adicionales que en función de la fecha cuentan con diferentes valores. Los patrones añadidos son los siguientes:
+
+\begin{itemize}
+	\item Día de la semana.
+	\item Día del mes.
+	\item Día del año.
+	\item Mes del año.
+	\item Cuatrimestre del año. 
+\end{itemize}
+
+Cuando se utilizan patrones cíclicos para entrenar modelos de inteligencia artificial se suele aplicar trigonometría \cite{sincos} a estas variables. Esto permite a los modelos capturar de forma óptima el comportamiento cíclico. Por ello, cada variable se añaden como pares, siendo una el seno y otra el coseno de la variable.
+
+Como estos patrones se pueden replicar para todos los rangos temporales, los modelos que utilicen regresores futuros podrán utilizarlos para mejorar sus predicciones.

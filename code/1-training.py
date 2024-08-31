@@ -76,6 +76,17 @@ series = TimeSeries.from_dataframe(df, time_col='fecha', value_cols=names+cols)
 
 series = series.add_holidays(country_code='ES', prov='AN')
 
+dat_atr = [
+    "day",
+    "dayofweek",
+    "dayofyear",
+    "month",
+    "quarter"
+]
+
+for atr in dat_atr:
+    series = series.add_datetime_attribute(attribute=atr, cyclic=True)
+
 transformer = Scaler(scaler)
 series = transformer.fit_transform(series)
 series = series.astype(np.float32)
@@ -85,14 +96,14 @@ _, val = train.split_after(pd.Timestamp(year=2022, month=6, day=30))
 
 # Definicion de modelos
 EPOCHS = 200
-BATCH = 16
+BATCH = 32
 INPUT = 260
 OUTPUT = 130
-DROPOUT = 0.2
+DROPOUT = 0.1
 
 my_stopper = EarlyStopping(
     monitor="val_loss",  
-    patience=10,
+    patience=20,
     min_delta=0.0001,
     mode='min',
 )
@@ -105,10 +116,6 @@ pl_trainer_kwargs = {
     "auto_select_gpus": True
 }
 
-encoders = {
-    'cyclic': {'past': ['quarter','dayofyear']},
-    'transformer': Scaler()
-}
 
 mod_blockrnn = BlockRNNModel(
     model='RNN',
@@ -123,7 +130,6 @@ mod_blockrnn = BlockRNNModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_blocklstm = BlockRNNModel(
@@ -139,7 +145,6 @@ mod_blocklstm = BlockRNNModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_blockgru = BlockRNNModel(
@@ -155,7 +160,6 @@ mod_blockgru = BlockRNNModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_nbeats = NBEATSModel(
@@ -170,7 +174,6 @@ mod_nbeats = NBEATSModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_nhits = NHiTSModel(
@@ -185,7 +188,6 @@ mod_nhits = NHiTSModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_tcn = TCNModel(
@@ -200,7 +202,6 @@ mod_tcn = TCNModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_transformer = TransformerModel(
@@ -215,7 +216,6 @@ mod_transformer = TransformerModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_tft = TFTModel(
@@ -230,7 +230,6 @@ mod_tft = TFTModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_dlinear = DLinearModel(
@@ -244,7 +243,6 @@ mod_dlinear = DLinearModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_nlinear = NLinearModel(
@@ -258,7 +256,6 @@ mod_nlinear = NLinearModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_tide = TiDEModel(
@@ -273,7 +270,6 @@ mod_tide = TiDEModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 mod_tsmixer = TSMixerModel(
@@ -288,7 +284,6 @@ mod_tsmixer = TSMixerModel(
     log_tensorboard=True,
     force_reset=True,
     pl_trainer_kwargs=pl_trainer_kwargs,
-    add_encoders=encoders
 )
 
 models = [
@@ -322,10 +317,10 @@ for model in models:
         model.fit(
             series=train[names],
             past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
-            future_covariates=series['holidays'],
+            future_covariates=series['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos'],
             val_series=val[names],
             val_past_covariates=val[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
-            val_future_covariates=val['holidays'],
+            val_future_covariates=val['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos'],
             dataloader_kwargs={"num_workers": 12}
             )
     else:
