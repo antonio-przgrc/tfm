@@ -95,13 +95,14 @@ series = series.astype(np.float32)
 train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
 _, val = train.split_after(pd.Timestamp(year=2022, month=6, day=30))
 
-# Guardado de timeseries para proximos usos
+# Guardado de para proximos usos
 series.to_pickle('results/series.pickle')
 train.to_pickle('results/train.pickle')
 test.to_pickle('results/test.pickle')
 with open('results/transformer.pickle', 'wb') as f:
     pickle.dump(transformer, f)
-
+with open('results/names.pickle', 'wb') as f:
+    pickle.dump(names, f)
 
 # Definicion de parametros
 EPOCHS = 300
