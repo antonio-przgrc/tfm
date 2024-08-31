@@ -5,12 +5,10 @@ import pandas as pd
 import torch
 import pickle
 from sklearn.preprocessing import MinMaxScaler
-import matplotlib.pyplot as plt
 from darts import TimeSeries
 from darts.dataprocessing.transformers import Scaler
 from darts.models import BlockRNNModel, NBEATSModel, NHiTSModel, TCNModel, TransformerModel, TFTModel, DLinearModel, NLinearModel, TiDEModel, TSMixerModel 
 from pytorch_lightning.callbacks import EarlyStopping
-from pytorch_lightning.callbacks import ModelCheckpoint
 warnings.filterwarnings('ignore')
 
 def tratamiento(fichero):
@@ -36,14 +34,6 @@ def agrupar(ficheros: list):
         df = pd.concat([df, aux], axis=1)
         lista.append(name)
     return df, lista
-
-def grafico(dataframe):
-    fig, ax = plt.subplots()
-    ax.plot(dataframe)
-    ax.minorticks_on()
-    ax.grid(which='major', alpha = 0.65, linestyle='-')
-    ax.grid(which='minor', alpha = 0.25, linestyle='--')
-    fig.autofmt_xdate()
 
 df, names = agrupar(['data/filtros.csv', 'data/baterias.csv', 'data/aceites.csv', 'data/limpiaparabrisas.csv'])
 
