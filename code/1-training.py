@@ -3,6 +3,7 @@ import time
 import numpy as np
 import pandas as pd
 import torch
+import pickle
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from darts import TimeSeries
@@ -94,8 +95,16 @@ series = series.astype(np.float32)
 train, test = series.split_after(pd.Timestamp(year=2023, month=12, day=31))
 _, val = train.split_after(pd.Timestamp(year=2022, month=6, day=30))
 
-# Definicion de modelos
-EPOCHS = 200
+# Guardado de timeseries para proximos usos
+series.to_pickle('results/series.pickle')
+train.to_pickle('results/train.pickle')
+test.to_pickle('results/test.pickle')
+with open('results/transformer.pickle', 'wb') as f:
+    pickle.dump(transformer, f)
+
+
+# Definicion de parametros
+EPOCHS = 300
 BATCH = 32
 INPUT = 260
 OUTPUT = 130
@@ -317,10 +326,10 @@ for model in models:
         model.fit(
             series=train[names],
             past_covariates=train[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
-            future_covariates=series['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos'],
+            future_covariates=series[['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos']],
             val_series=val[names],
             val_past_covariates=val[['tmed', 'prec', 'hrMedia', 'gasolina', 'diesel']],
-            val_future_covariates=val['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos'],
+            val_future_covariates=val[['holidays', 'day_sin', 'day_cos', 'dayofweek_sin', 'dayofweek_cos', 'dayofyear_sin', 'dayofyear_cos', 'month_sin', 'month_cos', 'quarter_sin', 'quarter_cos']],
             dataloader_kwargs={"num_workers": 12}
             )
     else:
